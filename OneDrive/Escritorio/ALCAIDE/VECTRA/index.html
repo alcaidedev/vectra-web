@@ -275,11 +275,11 @@
   <!-- ═══ NAV ═══════════════════════════════════════════════════ -->
   <nav>
     <a href="/" class="vectra-logo">
-      <svg width="32" height="29" viewBox="0 0 120 108" fill="none" aria-hidden="true">
-        <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="#111318" />
-        <polygon points="57,14 63,14 60,78" fill="#eceef2" opacity="0.9" />
-        <circle cx="60" cy="6" r="7" fill="#eceef2" />
-        <circle cx="60" cy="6" r="5.5" fill="#111318" />
+      <svg width="32" height="29" viewBox="0 0 120 108" fill="none" aria-hidden="true" style="--vectra-bg:#eceef2">
+        <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="#111318"/>
+        <polygon points="57,14 63,14 60,78" fill="var(--vectra-bg,#eceef2)" opacity="0.85"/>
+        <circle cx="60" cy="6" r="7" fill="var(--vectra-bg,#eceef2)"/>
+        <circle cx="60" cy="6" r="5.5" fill="#111318"/>
       </svg>
       <div class="vectra-logo__text">
         <span class="vectra-logo__wordmark">VECTRA</span>
@@ -287,12 +287,12 @@
       </div>
     </a>
 
-    <nav class="nav-links" aria-label="Principal">
+    <div class="nav-links" role="navigation" aria-label="Principal">
       <a href="#servicios">Servicios</a>
       <a href="#proceso">Proceso</a>
       <a href="#nosotros">Nosotros</a>
       <a href="#contacto">Contacto</a>
-    </nav>
+    </div>
 
     <button class="nav-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
       Solicitar presupuesto
