@@ -31,14 +31,16 @@
       background:rgba(236,238,242,0.93);
       backdrop-filter:blur(14px);
     }
-    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
-    .nav-wordmark {
-      font-family:'Barlow Condensed',sans-serif; font-weight:800;
-      font-size:19px; letter-spacing:0.14em; color:#111318; text-transform:uppercase; line-height:1;
+    .vectra-logo { display:flex; align-items:center; gap:11px; text-decoration:none; }
+    .vectra-logo__text { display:flex; flex-direction:column; }
+    .vectra-logo__wordmark {
+      font-family:'Barlow Condensed',sans-serif; font-weight:700;
+      font-size:19px; letter-spacing:-0.01em; line-height:1;
+      text-transform:uppercase; color:#111318;
     }
-    .nav-tagline {
+    .vectra-logo__tagline {
       font-family:'Barlow',sans-serif; font-weight:300; font-size:6.5px;
-      letter-spacing:0.2em; text-transform:uppercase; color:#8a909c; margin-top:3px;
+      letter-spacing:0.2em; text-transform:uppercase; color:#8a909c; margin-top:4px;
     }
     .nav-links { display:flex; gap:36px; }
     .nav-links a {
@@ -272,17 +274,16 @@
 
   <!-- ═══ NAV ═══════════════════════════════════════════════════ -->
   <nav>
-    <a href="#" class="nav-logo">
-      <!-- VECTRA mark: upward chevron / drone-eye V -->
+    <a href="/" class="vectra-logo">
       <svg width="26" height="24" viewBox="0 0 120 108" fill="none" aria-hidden="true">
         <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="#111318" />
         <polygon points="57,14 63,14 60,78" fill="#eceef2" opacity="0.85" />
         <circle cx="60" cy="6" r="7" fill="#eceef2" />
         <circle cx="60" cy="6" r="5.5" fill="#111318" />
       </svg>
-      <div>
-        <div class="nav-wordmark">Vectra</div>
-        <div class="nav-tagline">Soluciones Aéreas &amp; Inspecciones Técnicas</div>
+      <div class="vectra-logo__text">
+        <span class="vectra-logo__wordmark">VECTRA</span>
+        <span class="vectra-logo__tagline">Soluciones Aéreas &amp; Inspecciones Técnicas</span>
       </div>
     </a>
 
