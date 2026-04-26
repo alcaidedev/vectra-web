@@ -61,18 +61,44 @@
 
     /* ── HERO ─────────────────────────────────────────────────────── */
     .hero {
-      min-height:100vh; display:flex; flex-direction:column;
+      min-height:100vh; min-height:100svh; display:flex; flex-direction:column;
       align-items:center; justify-content:center; text-align:center;
       position:relative; padding:140px 40px 90px; overflow:hidden;
     }
+    .hero-watermark svg { display:block; max-width:95vw; height:auto; }
     .hero-bg {
-      position:absolute; inset:0;
-      background:radial-gradient(ellipse at 50% 38%, #f6f7f9 0%, #eceef2 68%);
+      position:absolute; inset:0; overflow:hidden;
+    }
+    .hero-vid {
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; opacity:0;
+      transition:opacity 1.2s ease;
+    }
+    .hero-overlay {
+      position:absolute; inset:0; z-index:1;
+      background:linear-gradient(160deg,
+        rgba(5,7,15,0.60) 0%,
+        rgba(5,7,15,0.44) 55%,
+        rgba(5,7,15,0.64) 100%);
     }
     .hero-watermark {
-      position:absolute; opacity:0.055; top:50%; left:50%;
-      transform:translate(-50%, -54%); pointer-events:none; user-select:none;
+      position:absolute; z-index:2; opacity:0.13; top:50%; left:50%;
+      transform:translate(-50%, -50%); pointer-events:none; user-select:none;
     }
+    /* Raise text content above watermark (z-index:3) */
+    .hero > *:not(.hero-bg):not(.hero-overlay):not(.hero-watermark) { position:relative; z-index:3; }
+    /* Text colours for dark video background */
+    .hero-eyebrow { color:rgba(255,255,255,0.65) !important; }
+    .hero-title { color:#ffffff !important; }
+    .hero-title em { color:rgba(255,255,255,0.22) !important; }
+    .hero-sub { color:rgba(255,255,255,0.72) !important; }
+    .hero .btn-ghost {
+      color:rgba(255,255,255,0.78);
+      border-color:rgba(255,255,255,0.35);
+    }
+    .hero .btn-ghost:hover { color:#ffffff; border-color:rgba(255,255,255,0.65); }
+    .hero .hero-scroll span { color:rgba(255,255,255,0.55); }
+    .hero .scroll-line { background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.45)); }
     .hero-eyebrow {
       font-size:10px; font-weight:500; letter-spacing:0.28em;
       text-transform:uppercase; color:#4a4e5a; margin-bottom:22px; position:relative;
@@ -88,7 +114,9 @@
       font-weight:300; font-size:15px; letter-spacing:0.06em; color:#3d4252;
       margin-top:26px; position:relative; max-width:440px; line-height:1.75;
     }
-    .hero-actions { display:flex; gap:14px; margin-top:42px; position:relative; flex-wrap:wrap; justify-content:center; }
+    .hero-actions { display:flex; gap:16px; margin-top:42px; position:relative; flex-wrap:wrap; justify-content:center; width:100%; }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-ghost { width:200px; text-align:center; }
     .btn-primary {
       font-family:'Barlow',sans-serif; font-size:12px; font-weight:600;
       letter-spacing:0.16em; text-transform:uppercase; color:#eceef2;
@@ -237,6 +265,10 @@
       .nav-links { display:none; }
       .nav-cta { display:none; }
       .ham { display:flex; }
+      .hero { padding:100px 32px 72px; }
+      .hero-actions { gap:14px; }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-ghost { width:180px; }
       .mob-menu {
         display:block; position:fixed; inset:0; top:68px;
         background:#eceef2; z-index:99; padding:48px 36px;
@@ -263,9 +295,11 @@
       .form-row { grid-template-columns:1fr; }
     }
     @media (max-width:480px) {
-      .hero { padding:120px 24px 80px; }
-      .hero-actions { flex-direction:column; align-items:center; }
-      .btn-primary, .btn-ghost { width:100%; text-align:center; }
+      .hero { padding:100px 20px 64px; }
+      .hero-watermark { opacity:0.09; }
+      .hero-actions { flex-direction:column; align-items:center; gap:12px; }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-ghost { width:100%; max-width:320px; }
     }
   </style>
 </head>
@@ -314,15 +348,23 @@
 
   <!-- ═══ HERO ════════════════════════════════════════════════════ -->
   <section class="hero">
-    <div class="hero-bg"></div>
+    <!-- Video background (A/B crossfade) -->
+    <div class="hero-bg">
+      <video id="hero-vid-a" class="hero-vid" muted playsinline autoplay preload="auto"
+             src="../WEBSITE_VIDEOS/drone_footage_green_field.mp4"></video>
+      <video id="hero-vid-b" class="hero-vid" muted playsinline autoplay preload="none"></video>
+    </div>
+    <div class="hero-overlay"></div>
 
     <!-- large watermark logo -->
     <div class="hero-watermark" aria-hidden="true">
-      <svg width="700" height="630" viewBox="0 0 120 108" fill="none">
-        <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="#111318" />
-        <polygon points="57,14 63,14 60,78" fill="#eceef2" opacity="0.85" />
-        <circle cx="60" cy="6" r="7" fill="#eceef2" />
-        <circle cx="60" cy="6" r="5.5" fill="#111318" />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 108" fill="none"
+           width="735" height="662"
+           style="color:#ffffff; --vectra-bg:#080a10">
+        <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="currentColor"/>
+        <polygon points="57,14 63,14 60,78" fill="transparent" style="fill:var(--vectra-bg,#080a10)" opacity="0.85"/>
+        <circle cx="60" cy="6" r="7" style="fill:var(--vectra-bg,#080a10)"/>
+        <circle cx="60" cy="6" r="5.5" fill="currentColor"/>
       </svg>
     </div>
 
@@ -378,11 +420,18 @@
         <div class="service-num" aria-hidden="true">02</div>
         <div class="service-icon">
           <svg width="40" height="40" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-            <polygon points="10,105 22,28 98,18 110,105" stroke="#111318" stroke-width="2.5" fill="none"/>
-            <rect x="44" y="68" width="32" height="28" stroke="#111318" stroke-width="2" fill="none"/>
-            <polyline points="38,70 60,50 82,70" stroke="#111318" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <line x1="32" y1="58" x2="42" y2="50" stroke="#111318" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-            <line x1="78" y1="50" x2="88" y2="58" stroke="#111318" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            <!-- Aerial field parcel boundary -->
+            <polygon points="12,96 20,18 102,24 98,102" stroke="#111318" stroke-width="2.5" fill="none"/>
+            <!-- Crop rows -->
+            <line x1="15" y1="38" x2="101" y2="42" stroke="#111318" stroke-width="1.5" opacity="0.5"/>
+            <line x1="14" y1="57" x2="100" y2="61" stroke="#111318" stroke-width="1.5" opacity="0.5"/>
+            <line x1="13" y1="76" x2="99" y2="80" stroke="#111318" stroke-width="1.5" opacity="0.5"/>
+            <!-- Irrigation track dividing field -->
+            <line x1="57" y1="18" x2="55" y2="102" stroke="#111318" stroke-width="1.5" opacity="0.5"/>
+            <!-- Wheat/plant symbol -->
+            <line x1="33" y1="54" x2="33" y2="42" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
+            <line x1="33" y1="47" x2="27" y2="41" stroke="#111318" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="33" y1="49" x2="39" y2="43" stroke="#111318" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="service-name">Inspección de finca agrícola</div>
@@ -402,12 +451,27 @@
         <div class="service-num" aria-hidden="true">03</div>
         <div class="service-icon">
           <svg width="40" height="40" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-            <circle cx="38" cy="76" r="22" stroke="#111318" stroke-width="2.5" fill="none"/>
-            <circle cx="82" cy="76" r="22" stroke="#111318" stroke-width="2.5" fill="none"/>
-            <line x1="60" y1="69" x2="60" y2="83" stroke="#111318" stroke-width="2.5" stroke-linecap="round"/>
-            <rect x="32" y="34" width="14" height="20" rx="3" stroke="#111318" stroke-width="2" fill="none"/>
-            <rect x="74" y="34" width="14" height="20" rx="3" stroke="#111318" stroke-width="2" fill="none"/>
-            <line x1="46" y1="44" x2="74" y2="44" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
+            <!-- Deer head -->
+            <ellipse cx="60" cy="82" rx="22" ry="26" stroke="#111318" stroke-width="2.5" fill="none"/>
+            <!-- Snout -->
+            <path d="M48,101 Q60,113 72,101" stroke="#111318" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- Eyes -->
+            <circle cx="50" cy="78" r="3" fill="#111318"/>
+            <circle cx="70" cy="78" r="3" fill="#111318"/>
+            <!-- Left ear -->
+            <path d="M42,68 Q30,52 40,43 Q49,50 46,67" stroke="#111318" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Right ear -->
+            <path d="M78,68 Q90,52 80,43 Q71,50 74,67" stroke="#111318" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Left antler -->
+            <line x1="48" y1="60" x2="34" y2="36" stroke="#111318" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="34" y1="36" x2="22" y2="16" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
+            <line x1="34" y1="36" x2="22" y2="30" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="16" x2="14" y2="10" stroke="#111318" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Right antler -->
+            <line x1="72" y1="60" x2="86" y2="36" stroke="#111318" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="86" y1="36" x2="98" y2="16" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
+            <line x1="86" y1="36" x2="98" y2="30" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
+            <line x1="98" y1="16" x2="106" y2="10" stroke="#111318" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="service-name">Gestión y recuento cinegético</div>
@@ -659,6 +723,94 @@
 
   <!-- ═══ SCRIPTS ══════════════════════════════════════════════════ -->
   <script>
+    /* ── Hero video playlist (A/B crossfade) ────────────────────── */
+    (function () {
+      const VIDEOS = [
+        '../WEBSITE_VIDEOS/drone_footage_green_field.mp4',
+        '../WEBSITE_VIDEOS/drone_flying_over_construction_site_4K.mp4',
+        '../WEBSITE_VIDEOS/drone_flying_back_castle_garden_4K.mp4',
+        '../WEBSITE_VIDEOS/4K_UHD_Drone_over_vineyard_grapes_in_fall_with_yellow_leaves_abstract_Portland_Oregon_Ryan.mp4',
+      ];
+
+      const vA = document.getElementById('hero-vid-a');
+      const vB = document.getElementById('hero-vid-b');
+      const pair = [vA, vB];
+      let idx = 0;
+      let active = 0;
+      let busy = false;
+      let skipCount = 0;
+
+      function tryPlay(el) {
+        const p = el.play();
+        if (p) p.catch(() => {});
+      }
+
+      /* iOS Safari fires canplay late or not at all for dynamic src.
+         We wait up to 2 s then attempt play regardless. */
+      function loadVideo(el, src, onReady, onFail) {
+        el.src = src;
+        el.load();
+        const timer = setTimeout(function () { cleanup(); onReady(); }, 2000);
+        function handleReady() { clearTimeout(timer); cleanup(); onReady(); }
+        function handleError() { clearTimeout(timer); cleanup(); onFail(); }
+        function cleanup() {
+          el.removeEventListener('canplay', handleReady);
+          el.removeEventListener('error',   handleError);
+        }
+        el.addEventListener('canplay', handleReady);
+        el.addEventListener('error',   handleError);
+      }
+
+      function crossfade() {
+        if (busy) return;
+        busy = true;
+        const next = 1 - active;
+        idx = (idx + 1) % VIDEOS.length;
+
+        loadVideo(pair[next], VIDEOS[idx],
+          function onReady() {
+            skipCount = 0;
+            tryPlay(pair[next]);
+            pair[next].style.opacity = '1';
+            pair[active].style.opacity = '0';
+            const prev = active;
+            active = next;
+            setTimeout(function () {
+              pair[prev].pause();
+              pair[prev].removeAttribute('src');
+              pair[prev].load();
+              busy = false;
+            }, 1300);
+          },
+          function onFail() {
+            skipCount++;
+            busy = false;
+            if (skipCount < VIDEOS.length) crossfade();
+          }
+        );
+      }
+
+      /* First video src is already in HTML so iOS Safari autoplays it.
+         JS just needs to make it visible and set up the cycling. */
+      vA.style.opacity = '1';
+      tryPlay(vA);
+
+      vA.addEventListener('ended', crossfade);
+      vB.addEventListener('ended', crossfade);
+
+      /* iOS pauses video on lock / tab switch — resume on visibility restore */
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) tryPlay(pair[active]);
+      });
+
+      /* Fallback: resume on first touch if autoplay was blocked */
+      document.addEventListener('touchstart', function resume() {
+        document.removeEventListener('touchstart', resume);
+        var v = pair[active];
+        if (v && v.paused && v.src) tryPlay(v);
+      }, { passive: true });
+    })();
+
     /* ── Mobile menu ─────────────────────────────────────────────── */
     const ham = document.getElementById('ham');
     const mob = document.getElementById('mob-menu');
