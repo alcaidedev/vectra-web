@@ -114,21 +114,6 @@
     .why-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:22px; color:var(--white); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px; margin-top:16px; }
     .why-desc { font-size:14px; font-weight:300; color:var(--mid); line-height:1.7; }
 
-    /* ── CASO REAL ───────────────────────────────────────────────── */
-    .caso { background:var(--bg-2); padding:100px 60px; }
-    .caso-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr; gap:80px; align-items:start; }
-    .caso-label { font-size:9px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; display:block; }
-    .caso-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:clamp(28px,3vw,42px); color:var(--white); letter-spacing:0.04em; line-height:1.05; margin-bottom:32px; }
-    .caso-meta { border-left:2px solid rgba(200,169,110,0.3); padding-left:20px; margin-bottom:32px; }
-    .caso-meta p { font-size:12px; font-weight:500; color:var(--mid); line-height:2; letter-spacing:0.04em; }
-    .caso-findings { list-style:none; margin-bottom:28px; }
-    .caso-findings li { font-size:13px; font-weight:300; color:rgba(240,242,248,0.65); line-height:1.7; padding:6px 0; border-bottom:1px solid var(--line); }
-    .caso-findings li::before { content:"— "; color:var(--muted); }
-    .caso-note { font-size:12px; font-style:italic; color:var(--muted); line-height:1.7; }
-    .caso-stats { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
-    .caso-stat { background:var(--bg-3); padding:36px 28px; }
-    .caso-stat-val { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:56px; color:var(--white); line-height:1; letter-spacing:-0.02em; display:block; }
-    .caso-stat-label { font-size:11px; font-weight:500; color:var(--mid); text-transform:uppercase; letter-spacing:0.1em; margin-top:6px; display:block; }
 
     /* ── PROCESO ─────────────────────────────────────────────────── */
     .proceso { padding:100px 60px; max-width:1200px; margin:0 auto; }
@@ -160,13 +145,11 @@
     .reveal.visible { opacity:1; transform:translateY(0); }
 
     /* ── DARK CONTRAST SECTIONS ─────────────────────────────────── */
-    .caso, .cta-band {
+    .cta-band {
       --bg:#0D0F14; --bg-2:#13161D; --bg-3:#1A1E27; --line:#252A35;
       --muted:#4A5168; --mid:#8891A8; --soft:#C8CEDC; --white:#F0F2F8;
       background:#0D0F14;
     }
-    .caso-findings li { color:rgba(240,242,248,0.68); border-bottom-color:rgba(255,255,255,0.08); }
-    .caso-findings li::before { color:#4A5168; }
 
     /* ── RESPONSIVE ──────────────────────────────────────────────── */
     @media(max-width:960px) {
@@ -174,13 +157,11 @@
       .nav-links, .nav-cta { display:none; }
       .ham { display:flex; }
       .why-grid { grid-template-columns:1fr; }
-      .caso-inner { grid-template-columns:1fr; }
       .proceso .process-grid { grid-template-columns:1fr 1fr; }
       .process-step:nth-child(2) { border-right:none; }
       .process-step:nth-child(3) { border-right:1px solid var(--line); border-top:1px solid var(--line); }
       .process-step:nth-child(4) { border-right:none; border-top:1px solid var(--line); }
       .why, .proceso { padding:70px 28px; }
-      .caso { padding:70px 28px; }
       .cta-band { padding:70px 28px; }
       .service-band { padding:16px 28px; }
       footer { padding:28px; flex-direction:column; align-items:center; text-align:center; }
@@ -189,7 +170,6 @@
       .hero-actions .btn-primary, .hero-actions .btn-ghost { width:100%; }
       .hero-actions { flex-direction:column; }
       .hero-watermark { opacity:0.07; }
-      .caso-stats { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -212,7 +192,7 @@
     <div class="nav-links">
       <a href="servicios.html">Servicios</a>
       <a href="index.html#proceso">Proceso</a>
-      <a href="index.html#caso">Nosotros</a>
+      <a href="index.html#proceso">Nosotros</a>
       <a href="contacto.html">Contacto</a>
     </div>
     <a href="contacto.html" class="nav-cta">Solicitar presupuesto</a>
@@ -226,7 +206,7 @@
   <div class="mob-menu" id="mob-menu">
     <a href="servicios.html" onclick="toggleMenu()">Servicios</a>
     <a href="index.html#proceso" onclick="toggleMenu()">Proceso</a>
-    <a href="index.html#caso" onclick="toggleMenu()">Nosotros</a>
+    <a href="index.html#proceso" onclick="toggleMenu()">Nosotros</a>
     <a href="contacto.html" onclick="toggleMenu()">Contacto</a>
     <a href="contacto.html" onclick="toggleMenu()" style="color:var(--accent)">Solicitar presupuesto</a>
   </div>
@@ -285,48 +265,6 @@
         <span class="why-num">03</span>
         <h3 class="why-title">Operadores certificados AESA</h3>
         <p class="why-desc">Cobertura legal completa. Autorizaciones de vuelo gestionadas, seguros en regla.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CASO REAL -->
-  <section class="caso" id="caso">
-    <div class="caso-inner">
-      <div class="caso-left">
-        <span class="caso-label">Trabajo real. Resultados reales.</span>
-        <h2 class="caso-title">Finca San Amaro<br>Marín, Pontevedra</h2>
-        <div class="caso-meta">
-          <p>Fecha: Enero 2026 &nbsp;·&nbsp; Ref. VEC-2026-0118-MAR</p>
-          <p>Superficie: ~800 m²</p>
-          <p>Patologías: 6 &nbsp;(2 alta urgencia &nbsp;·&nbsp; 3 media &nbsp;·&nbsp; 1 baja)</p>
-          <p>Tiempo: 1 sesión &nbsp;·&nbsp; Entrega: 48h</p>
-        </div>
-        <ul class="caso-findings">
-          <li>Colonización biológica severa en el 70–80% de la superficie</li>
-          <li>8–12 piezas de teja desplazadas con riesgo de filtración inmediata</li>
-          <li>Plantas vasculares en estadio avanzado entre tejas</li>
-          <li>Óxido incipiente en anclajes del faldón metálico</li>
-          <li>Escorrentía incontrolada en perímetro sur-este</li>
-        </ul>
-        <p class="caso-note">Sin dron, esta inspección habría requerido andamios, 2–3 días de obra y un coste 4–5 veces superior.</p>
-      </div>
-      <div class="caso-stats">
-        <div class="caso-stat reveal">
-          <span class="caso-stat-val">800m²</span>
-          <span class="caso-stat-label">Superficie inspeccionada</span>
-        </div>
-        <div class="caso-stat reveal">
-          <span class="caso-stat-val">6</span>
-          <span class="caso-stat-label">Patologías detectadas</span>
-        </div>
-        <div class="caso-stat reveal">
-          <span class="caso-stat-val">48h</span>
-          <span class="caso-stat-label">Entrega del informe</span>
-        </div>
-        <div class="caso-stat reveal">
-          <span class="caso-stat-val">÷5</span>
-          <span class="caso-stat-label">Coste vs. andamios</span>
-        </div>
       </div>
     </div>
   </section>
