@@ -359,90 +359,55 @@
         '/media/castle_garden.mp4',
         '/media/vineyard.mp4'
       ];
-      const vidA = document.getElementById('hero-vid-a');
-      const vidB = document.getElementById('hero-vid-b');
-      let currentIdx = 0;
-      let activeVid = vidA;
-      let inactiveVid = vidB;
-      let isTransitioning = false;
-      let loopTimer = null;
+      const vA = document.getElementById('hero-vid-a');
+      const vB = document.getElementById('hero-vid-b');
+      const pair = [vA, vB];
+      let idx = 0, active = 0, busy = false, skipCount = 0;
 
-      function showVid(el) {
-        el.style.opacity = '1';
-      }
-      function hideVid(el) {
-        el.style.opacity = '0';
-      }
+      function tryPlay(el) { var p = el.play(); if (p) p.catch(function(){}); }
 
-      function playNext() {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        currentIdx = (currentIdx + 1) % VIDEOS.length;
-        inactiveVid.src = VIDEOS[currentIdx];
-        inactiveVid.load();
-
-        let resolved = false;
-        const timeout = setTimeout(function() {
-          if (!resolved) doSwap();
-        }, 2000);
-
-        inactiveVid.addEventListener('canplay', function onCanPlay() {
-          inactiveVid.removeEventListener('canplay', onCanPlay);
-          if (!resolved) {
-            clearTimeout(timeout);
-            doSwap();
-          }
-        });
-
-        function doSwap() {
-          resolved = true;
-          inactiveVid.play().catch(function(){});
-          showVid(inactiveVid);
-          hideVid(activeVid);
-          setTimeout(function() {
-            activeVid.pause();
-            activeVid.src = '';
-          }, 900);
-          const tmp = activeVid;
-          activeVid = inactiveVid;
-          inactiveVid = tmp;
-          isTransitioning = false;
-          scheduleNext();
-        }
+      function loadVideo(el, src, onReady, onFail) {
+        el.src = src; el.load();
+        var timer = setTimeout(function() { cleanup(); onReady(); }, 2000);
+        function handleReady() { clearTimeout(timer); cleanup(); onReady(); }
+        function handleError() { clearTimeout(timer); cleanup(); onFail(); }
+        function cleanup() { el.removeEventListener('canplay', handleReady); el.removeEventListener('error', handleError); }
+        el.addEventListener('canplay', handleReady);
+        el.addEventListener('error', handleError);
       }
 
-      function scheduleNext() {
-        clearTimeout(loopTimer);
-        loopTimer = setTimeout(playNext, 9000);
+      function crossfade() {
+        if (busy) return;
+        busy = true;
+        var next = 1 - active;
+        idx = (idx + 1) % VIDEOS.length;
+        loadVideo(pair[next], VIDEOS[idx],
+          function() {
+            skipCount = 0;
+            tryPlay(pair[next]);
+            pair[next].style.opacity = '1';
+            pair[active].style.opacity = '0';
+            var prev = active; active = next;
+            setTimeout(function() { pair[prev].pause(); pair[prev].removeAttribute('src'); pair[prev].load(); busy = false; }, 900);
+          },
+          function() { skipCount++; busy = false; if (skipCount < VIDEOS.length) crossfade(); }
+        );
       }
 
-      vidA.addEventListener('canplay', function onFirstPlay() {
-        vidA.removeEventListener('canplay', onFirstPlay);
-        vidA.play().catch(function(){});
-        showVid(vidA);
-        scheduleNext();
-      });
+      /* Show first video immediately — don't wait for canplay */
+      vA.style.opacity = '1';
+      tryPlay(vA);
+      vA.addEventListener('ended', crossfade);
+      vB.addEventListener('ended', crossfade);
 
-      if (vidA.readyState >= 3) {
-        vidA.play().catch(function(){});
-        showVid(vidA);
-        scheduleNext();
-      }
-
+      /* iOS: resume after lock/tab switch */
       document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-          clearTimeout(loopTimer);
-          activeVid.pause();
-        } else {
-          activeVid.play().catch(function(){});
-          scheduleNext();
-        }
+        if (!document.hidden) tryPlay(pair[active]);
       });
-
-      document.addEventListener('touchstart', function() {
-        if (activeVid.paused) {
-          activeVid.play().catch(function(){});
-        }
+      /* Mobile fallback: resume on first touch */
+      document.addEventListener('touchstart', function resume() {
+        document.removeEventListener('touchstart', resume);
+        var v = pair[active]; if (v && v.paused && v.src) tryPlay(v);
       }, { passive: true });
     })();
 
