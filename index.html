@@ -4,23 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VECTRA — Soluciones Aéreas &amp; Inspecciones Técnicas</title>
+  <title>VECTRA — Inspección de Cubiertas y Fachadas con Dron · Madrid</title>
   <meta name="description"
-    content="Fotografía aérea para inmobiliarias e inspecciones técnicas de cubiertas con dron certificado AESA. Madrid y alrededores.">
+    content="Inspección técnica de cubiertas y fachadas con dron certificado AESA. Informe en 48h, sin andamios. Desde 350€. Madrid y alrededores.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@300;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; font-size:16px; }
-    body {
-      font-family:'Barlow',sans-serif;
-      background:#eceef2;
-      color:#111318;
-      overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-    }
+    body { font-family:'Barlow',sans-serif; background:#eceef2; color:#111318; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
 
     /* ── NAV ─────────────────────────────────────────────────────── */
     nav {
@@ -33,30 +25,15 @@
     }
     .vectra-logo { display:flex; align-items:center; gap:11px; text-decoration:none; }
     .vectra-logo__text { display:flex; flex-direction:column; }
-    .vectra-logo__wordmark {
-      font-family:'Barlow Condensed',sans-serif; font-weight:700;
-      font-size:19px; letter-spacing:-0.01em; line-height:1;
-      text-transform:uppercase; color:#111318;
-    }
-    .vectra-logo__tagline {
-      font-family:'Barlow',sans-serif; font-weight:300; font-size:6.5px;
-      letter-spacing:0.2em; text-transform:uppercase; color:#4a4e5a; margin-top:4px;
-    }
+    .vectra-logo__wordmark { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; line-height:1; text-transform:uppercase; color:#111318; }
+    .vectra-logo__tagline { font-family:'Barlow',sans-serif; font-weight:300; font-size:6.5px; letter-spacing:0.2em; text-transform:uppercase; color:#4a4e5a; margin-top:4px; }
     .nav-links { display:flex; gap:36px; }
-    .nav-links a {
-      font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;
-      color:#4a4e5a; text-decoration:none; transition:color .2s;
-    }
+    .nav-links a { font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#4a4e5a; text-decoration:none; transition:color .2s; }
     .nav-links a:hover { color:#111318; }
-    .nav-cta {
-      font-family:'Barlow',sans-serif; font-size:11px; font-weight:600;
-      letter-spacing:0.14em; text-transform:uppercase; color:#111318;
-      background:transparent; border:1px solid rgba(17,19,24,0.22);
-      padding:9px 20px; cursor:pointer; transition:all .2s;
-    }
+    .nav-cta { font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#111318; background:transparent; border:1px solid rgba(17,19,24,0.22); padding:9px 20px; cursor:pointer; transition:all .2s; }
     .nav-cta:hover { background:#111318; color:#eceef2; }
     .ham { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
-    .ham span { display:block; width:22px; height:1.5px; background:#111318; transition:all .25s; }
+    .ham span { display:block; width:22px; height:1.5px; background:#111318; transition:all .2s; }
     .mob-menu { display:none; }
 
     /* ── HERO ─────────────────────────────────────────────────────── */
@@ -66,198 +43,128 @@
       position:relative; padding:140px 40px 90px; overflow:hidden;
     }
     .hero-watermark svg { display:block; max-width:95vw; height:auto; }
-    .hero-bg {
-      position:absolute; inset:0; overflow:hidden;
-    }
-    .hero-vid {
-      position:absolute; inset:0; width:100%; height:100%;
-      object-fit:cover; opacity:0;
-      transition:opacity 1.2s ease;
-    }
-    .hero-overlay {
-      position:absolute; inset:0; z-index:1;
-      background:linear-gradient(160deg,
-        rgba(5,7,15,0.60) 0%,
-        rgba(5,7,15,0.44) 55%,
-        rgba(5,7,15,0.64) 100%);
-    }
-    .hero-watermark {
-      position:absolute; z-index:2; opacity:0.13; top:50%; left:50%;
-      transform:translate(-50%, -50%); pointer-events:none; user-select:none;
-    }
-    /* Raise text content above watermark (z-index:3) */
+    .hero-bg { position:absolute; inset:0; overflow:hidden; }
+    .hero-vid { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.8s ease; }
+    .hero-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(160deg, rgba(5,7,15,0.60) 0%, rgba(5,7,15,0.44) 55%, rgba(5,7,15,0.64) 100%); }
+    .hero-watermark { position:absolute; z-index:2; opacity:0.13; top:50%; left:50%; transform:translate(-50%, -50%); pointer-events:none; user-select:none; }
     .hero > *:not(.hero-bg):not(.hero-overlay):not(.hero-watermark) { position:relative; z-index:3; }
-    /* Text colours for dark video background */
     .hero-eyebrow { color:rgba(255,255,255,0.65) !important; }
     .hero-title { color:#ffffff !important; }
     .hero-title em { color:rgba(255,255,255,0.22) !important; }
     .hero-sub { color:rgba(255,255,255,0.72) !important; }
-    .hero .btn-ghost {
-      color:rgba(255,255,255,0.78);
-      border-color:rgba(255,255,255,0.35);
-    }
+    .hero .btn-ghost { color:rgba(255,255,255,0.78); border-color:rgba(255,255,255,0.35); }
     .hero .btn-ghost:hover { color:#ffffff; border-color:rgba(255,255,255,0.65); }
     .hero .hero-scroll span { color:rgba(255,255,255,0.55); }
     .hero .scroll-line { background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.45)); }
-    .hero-eyebrow {
-      font-size:10px; font-weight:500; letter-spacing:0.28em;
-      text-transform:uppercase; color:#4a4e5a; margin-bottom:22px; position:relative;
-    }
-    .hero-title {
-      font-family:'Barlow Condensed',sans-serif; font-weight:800;
-      font-size:clamp(58px,8.5vw,112px); line-height:0.92;
-      letter-spacing:0.04em; text-transform:uppercase; color:#111318;
-      position:relative; text-wrap:balance;
-    }
+    .hero-eyebrow { font-size:10px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:#4a4e5a; margin-bottom:22px; position:relative; }
+    .hero-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(58px,8.5vw,112px); line-height:0.92; letter-spacing:0.04em; text-transform:uppercase; color:#111318; position:relative; text-wrap:balance; }
     .hero-title em { font-style:normal; color:rgba(17,19,24,0.2); }
-    .hero-sub {
-      font-weight:300; font-size:15px; letter-spacing:0.06em; color:#3d4252;
-      margin-top:26px; position:relative; max-width:440px; line-height:1.75;
-    }
+    .hero-sub { font-weight:300; font-size:15px; letter-spacing:0.03em; color:#3d4252; margin-top:26px; position:relative; max-width:560px; line-height:1.65; }
     .hero-actions { display:flex; gap:16px; margin-top:42px; position:relative; flex-wrap:wrap; justify-content:center; width:100%; }
-    .hero-actions .btn-primary,
-    .hero-actions .btn-ghost { width:200px; text-align:center; }
-    .btn-primary {
-      font-family:'Barlow',sans-serif; font-size:12px; font-weight:600;
-      letter-spacing:0.16em; text-transform:uppercase; color:#eceef2;
-      background:#111318; border:none; padding:14px 32px; cursor:pointer;
-      transition:background .2s; text-decoration:none; display:inline-block;
-    }
+    .hero-actions .btn-primary, .hero-actions .btn-ghost { width:200px; text-align:center; }
+    .btn-primary { font-family:'Barlow',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:#eceef2; background:#111318; border:none; padding:14px 32px; cursor:pointer; transition:background .2s; text-decoration:none; display:inline-block; }
     .btn-primary:hover { background:#2a2d36; }
-    .btn-ghost {
-      font-family:'Barlow',sans-serif; font-size:12px; font-weight:500;
-      letter-spacing:0.16em; text-transform:uppercase;
-      color:rgba(17,19,24,0.6); background:transparent;
-      border:1px solid rgba(17,19,24,0.2); padding:14px 32px;
-      cursor:pointer; transition:all .2s; text-decoration:none; display:inline-block;
-    }
+    .btn-ghost { font-family:'Barlow',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(17,19,24,0.6); background:transparent; border:1px solid rgba(17,19,24,0.2); padding:14px 32px; cursor:pointer; transition:all .2s; text-decoration:none; display:inline-block; }
     .btn-ghost:hover { color:#111318; border-color:rgba(17,19,24,0.45); }
-    .hero-scroll {
-      position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
-      display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.3;
-    }
+    .hero-scroll { position:absolute; bottom:36px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.3; }
     .hero-scroll span { font-size:8px; letter-spacing:0.22em; text-transform:uppercase; color:#111318; }
     .scroll-line { width:1px; height:32px; background:linear-gradient(to bottom, transparent, #111318); }
 
     /* ── SERVICES ─────────────────────────────────────────────────── */
     .services { padding:100px 60px; max-width:1200px; margin:0 auto; }
-    .section-label {
-      font-size:9px; font-weight:600; letter-spacing:0.28em;
-      text-transform:uppercase; color:#4a4e5a; margin-bottom:16px;
-    }
-    .section-title {
-      font-family:'Barlow Condensed',sans-serif; font-weight:700;
-      font-size:clamp(32px,4vw,48px); color:#111318;
-      letter-spacing:0.04em; line-height:1.02; margin-bottom:56px;
-    }
+    .section-label { font-size:9px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:#4a4e5a; margin-bottom:16px; }
+    .section-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:clamp(32px,4vw,48px); color:#111318; letter-spacing:0.04em; line-height:1.02; margin-bottom:56px; }
     .services-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
-    .service-card {
-      background:#e4e7ed; padding:48px 44px;
-      position:relative; overflow:hidden; transition:background .2s;
-    }
+    .service-card { background:#e4e7ed; padding:48px 44px; position:relative; overflow:hidden; transition:background .2s; }
     .service-card:hover { background:#dde0e7; }
-    .service-num {
-      font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:68px;
-      color:rgba(17,19,24,0.07); line-height:1;
-      position:absolute; top:24px; right:28px; letter-spacing:-0.02em; user-select:none;
-    }
+    .service-num { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:68px; color:rgba(17,19,24,0.07); line-height:1; position:absolute; top:24px; right:28px; letter-spacing:-0.02em; user-select:none; }
     .service-icon { margin-bottom:28px; }
-    .service-name {
-      font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:24px;
-      color:#111318; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:14px;
-    }
-    .service-desc { font-weight:300; font-size:14px; color:#3d4252; line-height:1.75; max-width:340px; }
-    .service-list { margin-top:22px; display:flex; flex-direction:column; gap:9px; }
-    .service-list li {
-      font-size:12px; color:#3d4252; letter-spacing:0.06em;
-      list-style:none; display:flex; align-items:center; gap:11px;
-    }
-    .service-list li::before {
-      content:''; display:block; width:18px; height:1px; background:#b8bdc8; flex-shrink:0;
-    }
+    .service-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:24px; color:#111318; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:14px; }
+    .service-desc { font-weight:300; font-size:13px; color:#3d4252; line-height:1.6; max-width:340px; }
+    .service-list { margin-top:18px; display:flex; flex-direction:column; gap:8px; }
+    .service-list li { font-size:12px; color:#3d4252; letter-spacing:0.06em; list-style:none; display:flex; align-items:center; gap:11px; }
+    .service-list li::before { content:''; display:block; width:18px; height:1px; background:#b8bdc8; flex-shrink:0; }
+
+    /* ── CASO REAL ────────────────────────────────────────────────── */
+    .caso-real { background:#111318; padding:80px 60px; }
+    .caso-real-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr; gap:80px; align-items:start; }
+    .caso-label { font-size:9px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:16px; }
+    .caso-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(28px,3.5vw,42px); color:#ffffff; letter-spacing:0.04em; line-height:1.02; margin-bottom:28px; }
+    .caso-meta { display:flex; flex-direction:column; gap:5px; margin-bottom:28px; border-left:2px solid rgba(255,255,255,0.12); padding-left:16px; }
+    .caso-meta span { font-size:12px; color:rgba(255,255,255,0.5); letter-spacing:0.06em; line-height:1.5; }
+    .caso-meta strong { color:rgba(255,255,255,0.85); font-weight:500; }
+    .caso-findings { list-style:none; display:flex; flex-direction:column; gap:9px; }
+    .caso-findings li { font-size:13px; color:rgba(255,255,255,0.65); line-height:1.55; display:flex; gap:10px; }
+    .caso-findings li::before { content:'—'; color:rgba(255,255,255,0.2); flex-shrink:0; }
+    .caso-cta-note { margin-top:28px; font-size:12px; color:rgba(255,255,255,0.35); border-top:1px solid rgba(255,255,255,0.08); padding-top:20px; line-height:1.65; font-style:italic; }
+    .caso-stats-col { display:flex; flex-direction:column; gap:32px; padding-top:8px; }
+    .caso-stat-val { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:56px; color:#ffffff; letter-spacing:-0.02em; line-height:1; }
+    .caso-stat-label { font-size:10px; color:rgba(255,255,255,0.38); letter-spacing:0.12em; text-transform:uppercase; margin-top:4px; }
 
     /* ── PROCESS ──────────────────────────────────────────────────── */
-    .process { padding:80px 60px; border-top:1px solid #cdd1d8; border-bottom:1px solid #cdd1d8; }
+    .process { padding:72px 60px; border-top:1px solid #cdd1d8; border-bottom:1px solid #cdd1d8; }
     .process-inner { max-width:1200px; margin:0 auto; }
-    .process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:48px; }
-    .process-step { padding:32px; border-right:1px solid #cdd1d8; }
+    .process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:40px; }
+    .process-step { padding:28px 32px; border-right:1px solid #cdd1d8; }
     .process-step:last-child { border-right:none; }
-    .step-num {
-      font-family:'Barlow Condensed',sans-serif; font-weight:800;
-      font-size:42px; color:#c0c6d0; line-height:1; margin-bottom:16px; letter-spacing:-0.02em;
-    }
-    .step-title {
-      font-family:'Barlow Condensed',sans-serif; font-weight:600;
-      font-size:17px; color:#111318; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px;
-    }
-    .step-desc { font-size:12.5px; color:#3d4252; line-height:1.75; font-weight:300; }
+    .step-num { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:42px; color:#c0c6d0; line-height:1; margin-bottom:12px; letter-spacing:-0.02em; }
+    .step-title { font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:17px; color:#111318; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px; }
+    .step-desc { font-size:12.5px; color:#3d4252; line-height:1.65; font-weight:300; }
 
-    /* ── CASE STUDY STRIP ─────────────────────────────────────────── */
-    .case-strip {
-      background:#e4e7ed; border-top:1px solid #cdd1d8; border-bottom:1px solid #cdd1d8; padding:72px 60px;
-    }
+    /* ── KPIs ─────────────────────────────────────────────────────── */
+    .case-strip { background:#e4e7ed; border-top:1px solid #cdd1d8; border-bottom:1px solid #cdd1d8; padding:64px 60px; }
     .case-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
-    .case-kpi-row { display:flex; gap:48px; margin-top:36px; flex-wrap:wrap; }
+    .case-kpi-row { display:flex; gap:48px; margin-top:32px; flex-wrap:wrap; }
     .case-kpi { display:flex; flex-direction:column; gap:4px; }
-    .kpi-val {
-      font-family:'Barlow Condensed',sans-serif; font-weight:800;
-      font-size:42px; color:#111318; letter-spacing:-0.01em; line-height:1;
-    }
+    .kpi-val { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:42px; color:#111318; letter-spacing:-0.01em; line-height:1; }
     .kpi-label { font-size:11px; color:#4a4e5a; letter-spacing:0.1em; text-transform:uppercase; }
-    .case-quote {
-      font-size:15px; font-weight:300; color:#3d4252; line-height:1.75;
-      border-left:1px solid #b8bdc8; padding-left:28px;
-    }
+    .case-quote { font-size:15px; font-weight:300; color:#3d4252; line-height:1.75; border-left:1px solid #b8bdc8; padding-left:28px; }
     .case-quote strong { color:#2a2d36; font-weight:500; }
 
+    /* ── PRICING ──────────────────────────────────────────────────── */
+    .pricing { padding:80px 60px; border-top:1px solid #cdd1d8; }
+    .pricing-inner { max-width:1200px; margin:0 auto; }
+    .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:48px; }
+    .price-card { background:#e4e7ed; padding:40px 36px; display:flex; flex-direction:column; }
+    .price-card--highlight { background:#111318; }
+    .price-from { font-size:9px; font-weight:600; letter-spacing:0.24em; text-transform:uppercase; color:#4a4e5a; margin-bottom:6px; }
+    .price-card--highlight .price-from { color:rgba(255,255,255,0.4); }
+    .price-amount { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:52px; color:#111318; letter-spacing:-0.02em; line-height:1; margin-bottom:4px; }
+    .price-card--highlight .price-amount { color:#ffffff; }
+    .price-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:17px; color:#111318; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid rgba(17,19,24,0.1); }
+    .price-card--highlight .price-name { color:#ffffff; border-bottom-color:rgba(255,255,255,0.1); }
+    .price-desc { font-size:13px; color:#3d4252; line-height:1.65; font-weight:300; }
+    .price-card--highlight .price-desc { color:rgba(255,255,255,0.62); }
+    .pricing-note { max-width:1200px; margin:20px auto 0; padding:0 0 0 16px; border-left:2px solid #b8bdc8; font-size:12px; color:#4a4e5a; line-height:1.65; }
+
     /* ── CONTACT ──────────────────────────────────────────────────── */
-    .contact {
-      padding:100px 60px; max-width:1200px; margin:0 auto;
-      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;
-    }
-    .contact-title {
-      font-family:'Barlow Condensed',sans-serif; font-weight:800;
-      font-size:clamp(36px,4vw,56px); color:#111318;
-      letter-spacing:0.04em; line-height:1; margin-bottom:18px;
-    }
-    .contact-sub { font-size:14px; color:#3d4252; line-height:1.75; font-weight:300; max-width:380px; }
-    .contact-info { margin-top:34px; display:flex; flex-direction:column; gap:10px; }
-    .contact-info a, .contact-info span {
-      font-size:11px; color:#3d4252; letter-spacing:0.1em; text-decoration:none; transition:color .2s;
-    }
+    .contact { padding:100px 60px; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+    .contact-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(36px,4vw,56px); color:#111318; letter-spacing:0.04em; line-height:1; margin-bottom:18px; }
+    .contact-sub { font-size:14px; color:#3d4252; line-height:1.65; font-weight:300; max-width:380px; }
+    .contact-info { margin-top:28px; display:flex; flex-direction:column; gap:10px; }
+    .contact-info a, .contact-info span { font-size:11px; color:#3d4252; letter-spacing:0.1em; text-decoration:none; transition:color .2s; }
     .contact-info a:hover { color:#111318; }
     .contact-form { display:flex; flex-direction:column; gap:12px; }
-    .contact-form input,
-    .contact-form select,
-    .contact-form textarea {
-      background:#e4e7ed; border:1px solid #c4c9d2; color:#111318;
-      font-family:'Barlow',sans-serif; font-size:13px; font-weight:300;
-      padding:13px 16px; outline:none; transition:border-color .2s; resize:none;
-      width:100%; -webkit-appearance:none; appearance:none;
-    }
+    .contact-form input, .contact-form select, .contact-form textarea { background:#e4e7ed; border:1px solid #c4c9d2; color:#111318; font-family:'Barlow',sans-serif; font-size:13px; font-weight:300; padding:13px 16px; outline:none; transition:border-color .2s; resize:none; width:100%; -webkit-appearance:none; appearance:none; }
     .contact-form select { cursor:pointer; }
-    .contact-form input::placeholder,
-    .contact-form textarea::placeholder { color:#5a5e6a; letter-spacing:0.04em; }
-    .contact-form input:focus,
-    .contact-form select:focus,
-    .contact-form textarea:focus { border-color:#8a909c; }
+    .contact-form input::placeholder, .contact-form textarea::placeholder { color:#5a5e6a; letter-spacing:0.04em; }
+    .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color:#8a909c; }
     .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .form-status { font-size:12px; letter-spacing:0.06em; min-height:16px; transition:color .3s; }
-    .form-status.ok  { color:#2e7d32; }
+    .form-status { font-size:12px; letter-spacing:0.06em; min-height:16px; transition:color .2s; }
+    .form-status.ok { color:#2e7d32; }
     .form-status.err { color:#c62828; }
 
     /* ── FOOTER ───────────────────────────────────────────────────── */
-    footer {
-      padding:32px 60px; border-top:1px solid #cdd1d8;
-      display:flex; align-items:center; justify-content:space-between;
-    }
+    footer { padding:32px 60px; border-top:1px solid #cdd1d8; display:flex; align-items:center; justify-content:space-between; }
     .foot-left { display:flex; align-items:center; gap:11px; }
     .foot-copy { font-size:10px; color:#4a4e5a; letter-spacing:0.1em; }
     .footer-links { display:flex; gap:28px; }
-    .footer-links a {
-      font-size:10px; color:#4a4e5a; letter-spacing:0.1em; text-decoration:none; transition:color .2s;
-    }
+    .footer-links a { font-size:10px; color:#4a4e5a; letter-spacing:0.1em; text-decoration:none; transition:color .2s; }
     .footer-links a:hover { color:#111318; }
+
+    /* ── WHATSAPP ─────────────────────────────────────────────────── */
+    .wa-btn { position:fixed; bottom:24px; right:24px; z-index:200; width:56px; height:56px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 4px 14px rgba(37,211,102,0.45); transition:transform .2s, box-shadow .2s; }
+    .wa-btn:hover { transform:scale(1.1); box-shadow:0 6px 22px rgba(37,211,102,0.6); }
 
     /* ── RESPONSIVE ───────────────────────────────────────────────── */
     @media (max-width:960px) {
@@ -267,29 +174,23 @@
       .ham { display:flex; }
       .hero { padding:100px 32px 72px; }
       .hero-actions { gap:14px; }
-      .hero-actions .btn-primary,
-      .hero-actions .btn-ghost { width:180px; }
-      .mob-menu {
-        display:block; position:fixed; inset:0; top:68px;
-        background:#eceef2; z-index:99; padding:48px 36px;
-        transform:translateX(100%); transition:transform .3s cubic-bezier(.4,0,.2,1);
-      }
+      .hero-actions .btn-primary, .hero-actions .btn-ghost { width:180px; }
+      .mob-menu { display:block; position:fixed; inset:0; top:68px; background:#eceef2; z-index:99; padding:48px 36px; transform:translateX(100%); transition:transform .3s cubic-bezier(.4,0,.2,1); }
       .mob-menu.open { transform:none; }
-      .mob-menu a {
-        display:block; font-family:'Barlow Condensed',sans-serif;
-        font-weight:700; font-size:36px; color:#111318;
-        text-decoration:none; letter-spacing:0.06em; text-transform:uppercase;
-        padding:18px 0; border-bottom:1px solid #cdd1d8;
-      }
+      .mob-menu a { display:block; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:36px; color:#111318; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; padding:18px 0; border-bottom:1px solid #cdd1d8; }
       .services { padding:72px 28px; }
       .services-grid { grid-template-columns:1fr; }
-      .process { padding:64px 28px; }
+      .caso-real { padding:60px 28px; }
+      .caso-real-inner { grid-template-columns:1fr; gap:48px; }
+      .process { padding:56px 28px; }
       .process-steps { grid-template-columns:1fr 1fr; }
       .process-step { border-right:none; border-bottom:1px solid #cdd1d8; }
       .process-step:nth-child(odd) { border-right:1px solid #cdd1d8; }
       .process-step:last-child { border-bottom:none; }
-      .case-strip { padding:60px 28px; }
+      .case-strip { padding:56px 28px; }
       .case-inner { grid-template-columns:1fr; gap:48px; }
+      .pricing { padding:60px 28px; }
+      .pricing-grid { grid-template-columns:1fr; }
       .contact { padding:72px 28px; grid-template-columns:1fr; gap:52px; }
       footer { padding:28px 28px; flex-direction:column; gap:20px; text-align:center; }
       .form-row { grid-template-columns:1fr; }
@@ -298,8 +199,8 @@
       .hero { padding:100px 20px 64px; }
       .hero-watermark { opacity:0.09; }
       .hero-actions { flex-direction:column; align-items:center; gap:12px; }
-      .hero-actions .btn-primary,
-      .hero-actions .btn-ghost { width:100%; max-width:320px; }
+      .hero-actions .btn-primary, .hero-actions .btn-ghost { width:100%; max-width:320px; }
+      .wa-btn { bottom:16px; right:16px; }
     }
   </style>
 </head>
@@ -320,64 +221,47 @@
         <span class="vectra-logo__tagline">Soluciones Aéreas &amp; Inspecciones Técnicas</span>
       </div>
     </a>
-
     <div class="nav-links" role="navigation" aria-label="Principal">
       <a href="#servicios">Servicios</a>
       <a href="#proceso">Proceso</a>
-      <a href="#nosotros">Nosotros</a>
+      <a href="#tarifas">Tarifas</a>
       <a href="#contacto">Contacto</a>
     </div>
-
-    <button class="nav-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
-      Solicitar presupuesto
-    </button>
-
-    <button class="ham" id="ham" aria-label="Menú" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Solicitar presupuesto</button>
+    <button class="ham" id="ham" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 
   <!-- Mobile menu -->
   <div class="mob-menu" id="mob-menu" aria-hidden="true">
     <a href="#servicios">Servicios</a>
     <a href="#proceso">Proceso</a>
-    <a href="#nosotros">Nosotros</a>
+    <a href="#tarifas">Tarifas</a>
     <a href="#contacto">Contacto</a>
   </div>
 
 
   <!-- ═══ HERO ════════════════════════════════════════════════════ -->
   <section class="hero">
-    <!-- Video background (A/B crossfade) -->
     <div class="hero-bg">
-      <video id="hero-vid-a" class="hero-vid" muted playsinline autoplay preload="auto"
-             src="/media/green_field.mp4"></video>
+      <video id="hero-vid-a" class="hero-vid" muted playsinline autoplay preload="auto" src="/media/green_field.mp4"></video>
       <video id="hero-vid-b" class="hero-vid" muted playsinline autoplay preload="none"></video>
     </div>
     <div class="hero-overlay"></div>
-
-    <!-- large watermark logo -->
     <div class="hero-watermark" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 108" fill="none"
-           width="735" height="662"
-           style="color:#ffffff; --vectra-bg:#080a10">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 108" fill="none" width="735" height="662" style="color:#ffffff; --vectra-bg:#080a10">
         <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="currentColor"/>
         <polygon points="57,14 63,14 60,78" fill="transparent" style="fill:var(--vectra-bg,#080a10)" opacity="0.85"/>
         <circle cx="60" cy="6" r="7" style="fill:var(--vectra-bg,#080a10)"/>
         <circle cx="60" cy="6" r="5.5" fill="currentColor"/>
       </svg>
     </div>
-
-    <div class="hero-eyebrow">Madrid &nbsp;·&nbsp; Servicios Aéreos Profesionales</div>
+    <div class="hero-eyebrow">Madrid &nbsp;·&nbsp; Dron certificado AESA</div>
     <h1 class="hero-title">Vemos lo que<br /><em>otros</em> no ven</h1>
-    <p class="hero-sub">Fotografía aérea para inmobiliarias e inspecciones técnicas de cubiertas con dron certificado
-      AESA.</p>
-
+    <p class="hero-sub">Inspección técnica de cubiertas y fachadas con dron certificado AESA — informe en 48h, sin andamios, sin obra.</p>
     <div class="hero-actions">
-      <a href="#servicios" class="btn-primary">Nuestros servicios</a>
-      <a href="#contacto" class="btn-ghost">Solicitar visita</a>
+      <a href="#tarifas" class="btn-primary">Ver tarifas</a>
+      <a href="#contacto" class="btn-ghost">Solicitar presupuesto</a>
     </div>
-
     <div class="hero-scroll" aria-hidden="true">
       <div class="scroll-line"></div>
       <span>Scroll</span>
@@ -387,12 +271,11 @@
 
   <!-- ═══ SERVICES ════════════════════════════════════════════════ -->
   <section class="services" id="servicios">
-    <div class="section-label">Lo que hacemos</div>
-    <h2 class="section-title">Siete paquetes.<br />Una plataforma.</h2>
+    <div class="section-label">Servicios</div>
+    <h2 class="section-title">Lo que hacemos</h2>
 
     <div class="services-grid">
 
-      <!-- Card 01 -->
       <div class="service-card">
         <div class="service-num" aria-hidden="true">01</div>
         <div class="service-icon">
@@ -404,89 +287,67 @@
           </svg>
         </div>
         <div class="service-name">Inspección de cubierta y fachada</div>
-        <p class="service-desc">Diagnóstico visual completo del estado de conservación de la envolvente del edificio desde el aire.</p>
+        <p class="service-desc">Diagnóstico visual completo de la envolvente del edificio desde el aire.</p>
         <ul class="service-list">
-          <li>Vuelo de inspección con dron 4K</li>
-          <li>Detección de grietas, filtraciones y desprendimientos</li>
-          <li>Geolocalización de patologías detectadas</li>
-          <li>Informe técnico en PDF con fotografía aérea</li>
-          <li>Clasificación de patologías por urgencia</li>
-          <li>Recomendaciones de intervención priorizadas</li>
+          <li>Grietas, filtraciones y desprendimientos</li>
+          <li>Geolocalización de patologías</li>
+          <li>Informe PDF con fotografía aérea 4K</li>
+          <li>Clasificación por urgencia + recomendaciones</li>
         </ul>
       </div>
 
-      <!-- Card 02 -->
       <div class="service-card">
         <div class="service-num" aria-hidden="true">02</div>
         <div class="service-icon">
           <svg width="40" height="40" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-            <!-- Aerial field parcel boundary -->
             <polygon points="12,96 20,18 102,24 98,102" stroke="#111318" stroke-width="2.5" fill="none"/>
-            <!-- Crop rows -->
             <line x1="15" y1="38" x2="101" y2="42" stroke="#111318" stroke-width="1.5" opacity="0.5"/>
             <line x1="14" y1="57" x2="100" y2="61" stroke="#111318" stroke-width="1.5" opacity="0.5"/>
             <line x1="13" y1="76" x2="99" y2="80" stroke="#111318" stroke-width="1.5" opacity="0.5"/>
-            <!-- Irrigation track dividing field -->
             <line x1="57" y1="18" x2="55" y2="102" stroke="#111318" stroke-width="1.5" opacity="0.5"/>
-            <!-- Wheat/plant symbol -->
             <line x1="33" y1="54" x2="33" y2="42" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
             <line x1="33" y1="47" x2="27" y2="41" stroke="#111318" stroke-width="1.5" stroke-linecap="round"/>
             <line x1="33" y1="49" x2="39" y2="43" stroke="#111318" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="service-name">Inspección de finca agrícola</div>
-        <p class="service-desc">Inspección aérea integral de la finca: edificaciones, infraestructuras, cultivos y estado del terreno.</p>
+        <p class="service-desc">Inspección aérea integral de la finca: edificaciones, cultivos e infraestructuras.</p>
         <ul class="service-list">
-          <li>Vuelo de reconocimiento perimetral completo</li>
-          <li>Inspección de cubiertas y edificaciones auxiliares</li>
-          <li>Revisión de vallado, accesos y caminos interiores</li>
-          <li>Detección de daños en infraestructuras de riego</li>
+          <li>Reconocimiento perimetral completo</li>
+          <li>Vallado, accesos y caminos interiores</li>
+          <li>Infraestructuras de riego y edificaciones</li>
           <li>Documentación fotográfica georreferenciada</li>
-          <li>Informe de estado general de la propiedad</li>
         </ul>
       </div>
 
-      <!-- Card 03 -->
       <div class="service-card">
         <div class="service-num" aria-hidden="true">03</div>
         <div class="service-icon">
           <svg width="40" height="40" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-            <!-- Deer head -->
             <ellipse cx="60" cy="82" rx="22" ry="26" stroke="#111318" stroke-width="2.5" fill="none"/>
-            <!-- Snout -->
             <path d="M48,101 Q60,113 72,101" stroke="#111318" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <!-- Eyes -->
             <circle cx="50" cy="78" r="3" fill="#111318"/>
             <circle cx="70" cy="78" r="3" fill="#111318"/>
-            <!-- Left ear -->
             <path d="M42,68 Q30,52 40,43 Q49,50 46,67" stroke="#111318" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- Right ear -->
             <path d="M78,68 Q90,52 80,43 Q71,50 74,67" stroke="#111318" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- Left antler -->
             <line x1="48" y1="60" x2="34" y2="36" stroke="#111318" stroke-width="2.5" stroke-linecap="round"/>
             <line x1="34" y1="36" x2="22" y2="16" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
             <line x1="34" y1="36" x2="22" y2="30" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
-            <line x1="22" y1="16" x2="14" y2="10" stroke="#111318" stroke-width="1.5" stroke-linecap="round"/>
-            <!-- Right antler -->
             <line x1="72" y1="60" x2="86" y2="36" stroke="#111318" stroke-width="2.5" stroke-linecap="round"/>
             <line x1="86" y1="36" x2="98" y2="16" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
             <line x1="86" y1="36" x2="98" y2="30" stroke="#111318" stroke-width="2" stroke-linecap="round"/>
-            <line x1="98" y1="16" x2="106" y2="10" stroke="#111318" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="service-name">Gestión y recuento cinegético</div>
-        <p class="service-desc">Inspección y recuento de fauna mediante vuelo aéreo. Información precisa para la gestión del coto.</p>
+        <p class="service-desc">Recuento de fauna desde el aire para gestión precisa del coto.</p>
         <ul class="service-list">
-          <li>Vuelo de reconocimiento de la finca completa</li>
-          <li>Recuento y localización de animales por zonas</li>
-          <li>Registro fotográfico y de vídeo 4K del avistamiento</li>
-          <li>Detección de presencia de especies invasoras</li>
-          <li>Informe con mapa de distribución de fauna</li>
-          <li>Recomendaciones para la gestión del coto</li>
+          <li>Localización de animales por zonas</li>
+          <li>Vídeo 4K del avistamiento</li>
+          <li>Detección de especies invasoras</li>
+          <li>Mapa de distribución de fauna</li>
         </ul>
       </div>
 
-      <!-- Card 04 -->
       <div class="service-card">
         <div class="service-num" aria-hidden="true">04</div>
         <div class="service-icon">
@@ -496,22 +357,18 @@
             <rect x="52" y="32" width="14" height="17" stroke="#111318" stroke-width="2" fill="none"/>
             <rect x="28" y="65" width="18" height="18" stroke="#111318" stroke-width="1.5" fill="none" opacity="0.5"/>
             <rect x="74" y="65" width="18" height="18" stroke="#111318" stroke-width="1.5" fill="none" opacity="0.5"/>
-            <line x1="10" y1="48" x2="110" y2="48" stroke="#111318" stroke-width="1.5" opacity="0.4"/>
           </svg>
         </div>
-        <div class="service-name">Inspección de estructuras industriales</div>
-        <p class="service-desc">Diagnóstico técnico de naves industriales, fábricas y grandes cubiertas sin necesidad de andamios ni paradas de producción.</p>
+        <div class="service-name">Estructuras industriales</div>
+        <p class="service-desc">Diagnóstico de naves y grandes cubiertas sin andamios ni paradas de producción.</p>
         <ul class="service-list">
-          <li>Vuelo de inspección de cubierta y estructura exterior</li>
-          <li>Detección de fisuras, deformaciones y corrosión</li>
-          <li>Inspección de lucernarios, claraboyas y juntas</li>
-          <li>Revisión de bajantes y sistemas de evacuación</li>
-          <li>Informe técnico con inventario de patologías</li>
-          <li>Clasificación por nivel de urgencia e intervención</li>
+          <li>Fisuras, deformaciones y corrosión</li>
+          <li>Lucernarios, claraboyas y juntas</li>
+          <li>Bajantes y sistemas de evacuación</li>
+          <li>Informe con inventario y nivel de urgencia</li>
         </ul>
       </div>
 
-      <!-- Card 05 -->
       <div class="service-card">
         <div class="service-num" aria-hidden="true">05</div>
         <div class="service-icon">
@@ -525,19 +382,16 @@
             <polyline points="16,33 60,12 104,33" stroke="#111318" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
           </svg>
         </div>
-        <div class="service-name">Inspección de patrimonio y edificios públicos</div>
-        <p class="service-desc">Inspección técnica especializada en inmuebles de valor cultural, histórico o público con acceso difícil o restringido.</p>
+        <div class="service-name">Patrimonio y edificios públicos</div>
+        <p class="service-desc">Inspección especializada en inmuebles históricos o de acceso difícil.</p>
         <ul class="service-list">
-          <li>Vuelo de inspección adaptado a entorno histórico</li>
-          <li>Documentación fotográfica de alta precisión</li>
-          <li>Detección de desprendimientos y riesgo estructural</li>
-          <li>Inspección de torres, chapiteles y elementos singulares</li>
-          <li>Informe técnico compatible con documentación oficial</li>
-          <li>Material fotográfico apto para expedientes patrimoniales</li>
+          <li>Torres, chapiteles y elementos singulares</li>
+          <li>Desprendimientos y riesgo estructural</li>
+          <li>Informe compatible con documentación oficial</li>
+          <li>Material apto para expedientes patrimoniales</li>
         </ul>
       </div>
 
-      <!-- Card 06 -->
       <div class="service-card">
         <div class="service-num" aria-hidden="true">06</div>
         <div class="service-icon">
@@ -549,19 +403,16 @@
             <circle cx="94" cy="52" r="5" stroke="#111318" stroke-width="1.5" fill="none" opacity="0.6"/>
           </svg>
         </div>
-        <div class="service-name">Fotografía y vídeo para inmobiliarias</div>
-        <p class="service-desc">Contenido visual profesional para la venta de inmuebles. Fotografía y vídeo aéreo y de interiores en alta calidad, incluyendo recorridos virtuales 360º.</p>
+        <div class="service-name">Fotografía y vídeo inmobiliario</div>
+        <p class="service-desc">Contenido aéreo e interior profesional para venta de inmuebles.</p>
         <ul class="service-list">
-          <li>Fotografía y vídeo aéreo del inmueble y entorno</li>
-          <li>Fotografía profesional de todos los espacios interiores</li>
-          <li>Vídeo de recorrido interior del inmueble</li>
+          <li>Fotografía y vídeo aéreo 4K</li>
+          <li>Fotografía de interiores y recorrido en vídeo</li>
           <li>Tour virtual 360º navegable</li>
-          <li>Edición y entrega en alta resolución</li>
-          <li>Formatos optimizados para portales y redes sociales</li>
+          <li>Formatos para portales y redes sociales</li>
         </ul>
       </div>
 
-      <!-- Card 07 — full width -->
       <div class="service-card" style="grid-column:1/-1">
         <div class="service-num" aria-hidden="true">07</div>
         <div class="service-icon">
@@ -578,17 +429,58 @@
           </svg>
         </div>
         <div class="service-name">Plan de mantenimiento periódico</div>
-        <p class="service-desc">Programa de revisiones aéreas recurrentes para mantener el inmueble en perfecto estado y anticipar problemas antes de que se agraven.</p>
+        <p class="service-desc">Revisiones aéreas recurrentes para anticipar problemas antes de que se agraven.</p>
         <ul class="service-list">
-          <li>Inspecciones periódicas pactadas (anual o bianual)</li>
-          <li>Informe técnico completo en cada revisión</li>
+          <li>Inspecciones anuales o bianuales pactadas</li>
           <li>Comparativa con inspección anterior</li>
-          <li>Seguimiento de patologías identificadas previamente</li>
-          <li>Prioridad de respuesta ante incidencias</li>
+          <li>Seguimiento de patologías previas</li>
           <li>Presupuesto cerrado anual sin sorpresas</li>
         </ul>
       </div>
 
+    </div>
+  </section>
+
+
+  <!-- ═══ CASO REAL ═══════════════════════════════════════════════ -->
+  <section class="caso-real">
+    <div class="caso-real-inner">
+      <div>
+        <div class="caso-label">Trabajo real. Resultados reales.</div>
+        <h2 class="caso-title">Finca San Amaro<br />Marín, Pontevedra</h2>
+        <div class="caso-meta">
+          <span><strong>Fecha:</strong> Enero 2026 · Ref. VEC-2026-0118-MAR</span>
+          <span><strong>Superficie inspeccionada:</strong> ~800 m²</span>
+          <span><strong>Patologías detectadas:</strong> 6 (2 alta urgencia · 3 media · 1 baja)</span>
+          <span><strong>Tiempo de vuelo:</strong> 1 sesión · <strong>Entrega:</strong> 48h</span>
+        </div>
+        <ul class="caso-findings">
+          <li>Colonización biológica severa en el 70–80% de la superficie</li>
+          <li>8–12 piezas de teja desplazadas con riesgo de filtración inmediata</li>
+          <li>Plantas vasculares en estadio avanzado entre tejas</li>
+          <li>Óxido incipiente en anclajes del faldón metálico</li>
+          <li>Escorrentía incontrolada en perímetro sur-este</li>
+        </ul>
+        <p class="caso-cta-note">Sin dron, esta inspección habría requerido andamios, 2–3 días de obra y un coste 4–5 veces superior.</p>
+      </div>
+      <div class="caso-stats-col">
+        <div>
+          <div class="caso-stat-val">800m²</div>
+          <div class="caso-stat-label">Superficie inspeccionada</div>
+        </div>
+        <div>
+          <div class="caso-stat-val">6</div>
+          <div class="caso-stat-label">Patologías detectadas</div>
+        </div>
+        <div>
+          <div class="caso-stat-val">48h</div>
+          <div class="caso-stat-label">Entrega del informe</div>
+        </div>
+        <div>
+          <div class="caso-stat-val">÷5</div>
+          <div class="caso-stat-label">Coste vs. andamios</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -598,38 +490,33 @@
     <div class="process-inner">
       <div class="section-label">Cómo trabajamos</div>
       <h2 class="section-title">Simple. Preciso. Rápido.</h2>
-
       <div class="process-steps">
         <div class="process-step">
           <div class="step-num">01</div>
           <div class="step-title">Contacto</div>
-          <p class="step-desc">Nos envías la dirección o inmueble. Estudiamos el espacio aéreo y confirmamos
-            disponibilidad en menos de 24 h.</p>
+          <p class="step-desc">Envíanos dirección e inmueble. Confirmamos disponibilidad en 24 h.</p>
         </div>
         <div class="process-step">
           <div class="step-num">02</div>
           <div class="step-title">Planificación</div>
-          <p class="step-desc">Diseñamos el vuelo, gestionamos autorizaciones AESA y coordinamos con el cliente la fecha
-            óptima.</p>
+          <p class="step-desc">Gestionamos autorizaciones AESA y coordinamos fecha de vuelo.</p>
         </div>
         <div class="process-step">
           <div class="step-num">03</div>
-          <div class="step-title">Operación</div>
-          <p class="step-desc">Realizamos el vuelo con equipo certificado. Captura en 4K, operado por piloto AESA
-            habilitado.</p>
+          <div class="step-title">Vuelo</div>
+          <p class="step-desc">Captura en 4K con piloto AESA habilitado. Sin andamios ni obra.</p>
         </div>
         <div class="process-step">
           <div class="step-num">04</div>
           <div class="step-title">Entrega</div>
-          <p class="step-desc">Recibes el material editado o el informe técnico completo en 48 horas vía enlace de
-            descarga seguro.</p>
+          <p class="step-desc">Informe técnico completo en 48 h vía enlace de descarga.</p>
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- ═══ CASE STUDY / NUMBERS ════════════════════════════════════ -->
+  <!-- ═══ KPIs ═════════════════════════════════════════════════════ -->
   <section class="case-strip" id="nosotros">
     <div class="case-inner">
       <div>
@@ -656,10 +543,42 @@
           VECTRA la resolvió en una mañana. El informe fotográfico por zonas fue
           <strong>exactamente lo que necesitaba el seguro</strong>."
         </p>
-        <p style="margin-top:20px; font-size:11px; color:#8a909c; letter-spacing:0.1em; text-transform:uppercase;">
-          — Administrador de fincas, Madrid
-        </p>
+        <p style="margin-top:16px; font-size:11px; color:#8a909c; letter-spacing:0.1em; text-transform:uppercase;">— Administrador de fincas, Madrid</p>
       </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ TARIFAS ══════════════════════════════════════════════════ -->
+  <section class="pricing" id="tarifas">
+    <div class="pricing-inner">
+      <div class="section-label">Tarifas orientativas</div>
+      <h2 class="section-title">Precios claros.<br />Sin sorpresas.</h2>
+      <div class="pricing-grid">
+
+        <div class="price-card">
+          <div class="price-from">desde</div>
+          <div class="price-amount">350€</div>
+          <div class="price-name">Inspección básica</div>
+          <p class="price-desc">Cubierta o fachada hasta 500 m². Vuelo + fotografía 4K + informe visual básico. Entrega en 48h.</p>
+        </div>
+
+        <div class="price-card price-card--highlight">
+          <div class="price-from">desde</div>
+          <div class="price-amount">550€</div>
+          <div class="price-name">Inspección técnica completa</div>
+          <p class="price-desc">Hasta 1.500 m². Vuelo + fotografía 4K + informe técnico con inventario de patologías, nivel de urgencia y recomendaciones. Entrega en 48h.</p>
+        </div>
+
+        <div class="price-card">
+          <div class="price-from">desde</div>
+          <div class="price-amount">900€</div>
+          <div class="price-name">Nave industrial / gran superficie</div>
+          <p class="price-desc">Más de 1.500 m². Vuelo sistematizado, cobertura total, informe técnico detallado. Presupuesto final según superficie exacta.</p>
+        </div>
+
+      </div>
+      <p class="pricing-note">Presupuesto sin compromiso en menos de 24 horas. El precio final depende de la superficie, accesibilidad y complejidad del inmueble.</p>
     </div>
   </section>
 
@@ -669,12 +588,10 @@
     <div>
       <div class="section-label">Contacto</div>
       <h2 class="contact-title">Hablemos de<br />tu proyecto</h2>
-      <p class="contact-sub">Operamos en Madrid y alrededores. Cuéntanos qué necesitas y te enviamos presupuesto sin
-        compromiso en menos de 24 horas.</p>
-
+      <p class="contact-sub">Operamos en Madrid y alrededores. Presupuesto sin compromiso en menos de 24 horas.</p>
       <div class="contact-info">
-        <a href="mailto:info@vectra-aerea.com">info@vectra-aerea.com</a>
-        <a href="tel:+34600000000">+34 600 000 000</a>
+        <a href="mailto:contacto@vectra-aerea.com">contacto@vectra-aerea.com</a>
+        <a href="tel:+34689632895">+34 689 632 895</a>
         <span>Madrid, España</span>
       </div>
     </div>
@@ -688,12 +605,14 @@
       <input type="text" name="inmueble" placeholder="Dirección del inmueble (opcional)">
       <select name="servicio">
         <option value="" disabled selected>Servicio de interés</option>
+        <option value="basica">Inspección básica (hasta 500 m²)</option>
+        <option value="completa">Inspección técnica completa</option>
+        <option value="industrial">Nave industrial / gran superficie</option>
         <option value="inmobiliaria">Fotografía inmobiliaria aérea</option>
-        <option value="inspeccion">Inspección técnica de cubiertas</option>
-        <option value="ambos">Ambos servicios</option>
+        <option value="agricola">Finca agrícola o cinegética</option>
         <option value="otro">Otro / consulta general</option>
       </select>
-      <textarea name="mensaje" rows="4" placeholder="Describe brevemente el proyecto…"></textarea>
+      <textarea name="mensaje" rows="3" placeholder="Describe brevemente el proyecto…"></textarea>
       <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
         <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Enviar solicitud</button>
         <p class="form-status" id="fstatus"></p>
@@ -706,10 +625,10 @@
   <footer>
     <div class="foot-left">
       <svg width="18" height="16" viewBox="0 0 120 108" fill="none" aria-hidden="true">
-        <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="#9098a8" />
-        <polygon points="57,14 63,14 60,78" fill="#eceef2" opacity="0.85" />
-        <circle cx="60" cy="6" r="7" fill="#eceef2" />
-        <circle cx="60" cy="6" r="5.5" fill="#9098a8" />
+        <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="#9098a8"/>
+        <polygon points="57,14 63,14 60,78" fill="#eceef2" opacity="0.85"/>
+        <circle cx="60" cy="6" r="7" fill="#eceef2"/>
+        <circle cx="60" cy="6" r="5.5" fill="#9098a8"/>
       </svg>
       <span class="foot-copy">&copy; 2026 VECTRA. Todos los derechos reservados.</span>
     </div>
@@ -719,6 +638,14 @@
       <a href="#">AESA</a>
     </div>
   </footer>
+
+
+  <!-- ═══ WHATSAPP ══════════════════════════════════════════════════ -->
+  <a class="wa-btn" href="https://wa.me/34689632895?text=Hola%2C%20me%20interesa%20una%20inspecci%C3%B3n%20con%20dron" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
 
 
   <!-- ═══ SCRIPTS ══════════════════════════════════════════════════ -->
@@ -731,34 +658,21 @@
         '/media/castle_garden.mp4',
         '/media/vineyard.mp4',
       ];
-
       const vA = document.getElementById('hero-vid-a');
       const vB = document.getElementById('hero-vid-b');
       const pair = [vA, vB];
-      let idx = 0;
-      let active = 0;
-      let busy = false;
-      let skipCount = 0;
+      let idx = 0, active = 0, busy = false, skipCount = 0;
 
-      function tryPlay(el) {
-        const p = el.play();
-        if (p) p.catch(() => {});
-      }
+      function tryPlay(el) { const p = el.play(); if (p) p.catch(() => {}); }
 
-      /* iOS Safari fires canplay late or not at all for dynamic src.
-         We wait up to 2 s then attempt play regardless. */
       function loadVideo(el, src, onReady, onFail) {
-        el.src = src;
-        el.load();
+        el.src = src; el.load();
         const timer = setTimeout(function () { cleanup(); onReady(); }, 2000);
         function handleReady() { clearTimeout(timer); cleanup(); onReady(); }
         function handleError() { clearTimeout(timer); cleanup(); onFail(); }
-        function cleanup() {
-          el.removeEventListener('canplay', handleReady);
-          el.removeEventListener('error',   handleError);
-        }
+        function cleanup() { el.removeEventListener('canplay', handleReady); el.removeEventListener('error', handleError); }
         el.addEventListener('canplay', handleReady);
-        el.addEventListener('error',   handleError);
+        el.addEventListener('error', handleError);
       }
 
       function crossfade() {
@@ -766,48 +680,27 @@
         busy = true;
         const next = 1 - active;
         idx = (idx + 1) % VIDEOS.length;
-
         loadVideo(pair[next], VIDEOS[idx],
           function onReady() {
             skipCount = 0;
             tryPlay(pair[next]);
             pair[next].style.opacity = '1';
             pair[active].style.opacity = '0';
-            const prev = active;
-            active = next;
-            setTimeout(function () {
-              pair[prev].pause();
-              pair[prev].removeAttribute('src');
-              pair[prev].load();
-              busy = false;
-            }, 1300);
+            const prev = active; active = next;
+            setTimeout(function () { pair[prev].pause(); pair[prev].removeAttribute('src'); pair[prev].load(); busy = false; }, 900);
           },
-          function onFail() {
-            skipCount++;
-            busy = false;
-            if (skipCount < VIDEOS.length) crossfade();
-          }
+          function onFail() { skipCount++; busy = false; if (skipCount < VIDEOS.length) crossfade(); }
         );
       }
 
-      /* First video src is already in HTML so iOS Safari autoplays it.
-         JS just needs to make it visible and set up the cycling. */
-      vA.style.opacity = '1';
-      tryPlay(vA);
-
+      vA.style.opacity = '1'; tryPlay(vA);
       vA.addEventListener('ended', crossfade);
       vB.addEventListener('ended', crossfade);
 
-      /* iOS pauses video on lock / tab switch — resume on visibility restore */
-      document.addEventListener('visibilitychange', function () {
-        if (!document.hidden) tryPlay(pair[active]);
-      });
-
-      /* Fallback: resume on first touch if autoplay was blocked */
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) tryPlay(pair[active]); });
       document.addEventListener('touchstart', function resume() {
         document.removeEventListener('touchstart', resume);
-        var v = pair[active];
-        if (v && v.paused && v.src) tryPlay(v);
+        var v = pair[active]; if (v && v.paused && v.src) tryPlay(v);
       }, { passive: true });
     })();
 
@@ -818,7 +711,6 @@
       const open = mob.classList.toggle('open');
       ham.setAttribute('aria-expanded', open);
       mob.setAttribute('aria-hidden', !open);
-      // Animate hamburger → X
       const spans = ham.querySelectorAll('span');
       if (open) {
         spans[0].style.transform = 'translateY(6.5px) rotate(45deg)';
@@ -832,71 +724,34 @@
       mob.classList.remove('open');
       ham.setAttribute('aria-expanded', 'false');
       mob.setAttribute('aria-hidden', 'true');
-      const spans = ham.querySelectorAll('span');
-      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+      ham.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
     }));
 
     /* ── Scroll reveal ───────────────────────────────────────────── */
-    const revealEls = document.querySelectorAll(
-      '.service-card, .process-step, .case-kpi, .case-quote, .contact-title, .contact-sub'
-    );
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.style.opacity = '1';
-          e.target.style.transform = 'translateY(0)';
-          io.unobserve(e.target);
-        }
+        if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; io.unobserve(e.target); }
       });
-    }, { threshold: 0.12 });
-
-    revealEls.forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(22px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.service-card, .process-step, .case-kpi, .price-card, .caso-stat-val').forEach(el => {
+      el.style.opacity = '0'; el.style.transform = 'translateY(18px)';
+      el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
       io.observe(el);
     });
-
-    /* ── Nav background on scroll ────────────────────────────────── */
-    const navEl = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-      navEl.style.borderBottomColor = window.scrollY > 40
-        ? 'rgba(255,255,255,0.08)'
-        : 'rgba(255,255,255,0.06)';
-    }, { passive: true });
 
     /* ── Formspree AJAX ──────────────────────────────────────────── */
     const form = document.getElementById('cform');
     const status = document.getElementById('fstatus');
-
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const btn = form.querySelector('button[type=submit]');
-      btn.textContent = 'Enviando…';
-      btn.disabled = true;
-      status.textContent = '';
-      status.className = 'form-status';
-
+      btn.textContent = 'Enviando…'; btn.disabled = true; status.textContent = ''; status.className = 'form-status';
       try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          status.textContent = 'Mensaje enviado. Te contactamos pronto.';
-          status.className = 'form-status ok';
-          form.reset();
-        } else {
-          throw new Error();
-        }
-      } catch {
-        status.textContent = 'Error al enviar. Escríbenos directamente por email.';
-        status.className = 'form-status err';
-      } finally {
-        btn.textContent = 'Enviar solicitud';
-        btn.disabled = false;
-      }
+        const res = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{'Accept':'application/json'} });
+        if (res.ok) { status.textContent = 'Mensaje enviado. Te contactamos pronto.'; status.className = 'form-status ok'; form.reset(); }
+        else throw new Error();
+      } catch { status.textContent = 'Error al enviar. Escríbenos directamente.'; status.className = 'form-status err'; }
+      finally { btn.textContent = 'Enviar solicitud'; btn.disabled = false; }
     });
   </script>
 </body>
