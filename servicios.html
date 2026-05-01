@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios — VECTRA · Inspecciones con Dron · Madrid</title>
+  <meta name="description" content="Seis líneas de servicio de inspección con dron certificado AESA. Cubiertas, fincas, gestión cinegética, naves industriales, patrimonio y fotografía aérea. Madrid.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@300;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--white); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+
+    /* ── CSS VARIABLES ────────────────────────────────────────────── */
+    :root {
+      --bg:#0D0F14;
+      --bg-2:#13161D;
+      --bg-3:#1A1E27;
+      --line:#252A35;
+      --muted:#4A5168;
+      --mid:#8891A8;
+      --soft:#C8CEDC;
+      --white:#F0F2F8;
+      --accent:#C8A96E;
+      --accent-dim:rgba(200,169,110,0.08);
+      --accent-glow:rgba(200,169,110,0.18);
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      height:68px; display:flex; align-items:center; justify-content:space-between;
+      padding:0 60px;
+      border-bottom:1px solid var(--line);
+      background:rgba(13,15,20,0.92);
+      backdrop-filter:blur(14px);
+    }
+    .vectra-logo { display:flex; align-items:center; gap:11px; text-decoration:none; }
+    .vectra-logo__text { display:flex; flex-direction:column; }
+    .vectra-logo__wordmark { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; line-height:1; text-transform:uppercase; color:var(--white); }
+    .vectra-logo__tagline { font-family:'Barlow',sans-serif; font-weight:300; font-size:6.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+    .nav-links { display:flex; gap:36px; }
+    .nav-links a { font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover, .nav-links a.nav-active { color:var(--accent); }
+    .nav-cta { font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--bg); background:var(--accent); border:none; padding:9px 20px; cursor:pointer; transition:all .2s; text-decoration:none; display:inline-block; }
+    .nav-cta:hover { background:#d4b87a; }
+    .ham { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; z-index:200; }
+    .ham span { display:block; width:22px; height:1.5px; background:var(--white); transition:all .2s; }
+    .ham.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+    .ham.open span:nth-child(2) { opacity:0; }
+    .ham.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+
+    /* ── MOBILE MENU ─────────────────────────────────────────────── */
+    .mob-menu {
+      position:fixed; top:0; right:0; bottom:0; width:80vw; max-width:320px;
+      background:var(--bg-2); z-index:150; transform:translateX(100%);
+      transition:transform .3s ease; display:flex; flex-direction:column;
+      padding:100px 40px 60px; gap:32px;
+    }
+    .mob-menu.open { transform:translateX(0); }
+    .mob-menu a { font-family:'Barlow Condensed',sans-serif; font-size:36px; font-weight:700; color:var(--white); text-decoration:none; letter-spacing:0.04em; text-transform:uppercase; transition:color .2s; }
+    .mob-menu a:hover, .mob-menu a.nav-active { color:var(--accent); }
+    .mob-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:140; display:none; }
+    .mob-overlay.open { display:block; }
+
+    /* ── BUTTONS ─────────────────────────────────────────────────── */
+    .btn-primary { font-family:'Barlow',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--bg); background:var(--accent); border:none; padding:14px 32px; cursor:pointer; transition:background .2s; text-decoration:none; display:inline-block; }
+    .btn-primary:hover { background:#d4b87a; }
+
+    /* ── SECTION COMMON ──────────────────────────────────────────── */
+    .section-label { font-size:9px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; display:block; }
+
+    /* ── PAGE HERO ───────────────────────────────────────────────── */
+    .page-hero { padding:160px 60px 80px; text-align:center; border-bottom:1px solid var(--line); }
+    .page-hero__label { font-size:9px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:20px; }
+    .page-hero__title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(80px,12vw,140px); color:var(--white); letter-spacing:0.04em; line-height:0.9; text-transform:uppercase; margin-bottom:24px; }
+    .page-hero__sub { font-size:15px; font-weight:300; color:var(--mid); line-height:1.65; max-width:500px; margin:0 auto; }
+
+    /* ── SERVICES GRID ───────────────────────────────────────────── */
+    .services-section { padding:0; }
+    .services-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+    .service-card { background:var(--bg-2); padding:48px 44px; position:relative; overflow:hidden; transition:background .2s; }
+    .service-card:hover { background:var(--bg-3); }
+    .service-num { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:68px; color:rgba(200,169,110,0.08); line-height:1; position:absolute; top:24px; right:28px; letter-spacing:-0.02em; user-select:none; }
+    .service-icon { margin-bottom:28px; }
+    .service-icon svg { display:block; }
+    .service-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:24px; color:var(--white); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px; }
+    .service-desc { font-size:13px; font-weight:300; color:var(--mid); line-height:1.7; margin-bottom:20px; }
+    .service-list { list-style:none; }
+    .service-list li { font-size:12px; font-weight:500; color:var(--soft); line-height:1.8; padding-left:18px; position:relative; }
+    .service-list li::before { content:"—"; position:absolute; left:0; color:var(--muted); }
+
+    /* ── PRICING ─────────────────────────────────────────────────── */
+    .pricing { padding:100px 60px; border-top:1px solid var(--line); }
+    .pricing-inner { max-width:1200px; margin:0 auto; }
+    .pricing-note { font-size:13px; font-weight:300; color:var(--mid); line-height:1.7; max-width:660px; margin-bottom:48px; }
+    .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+    .price-card { background:var(--bg-2); padding:40px 36px; position:relative; }
+    .price-card--highlight { background:var(--accent); }
+    .price-from { font-size:9px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:6px; }
+    .price-card--highlight .price-from { color:var(--bg); }
+    .price-amount { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:52px; color:var(--accent); line-height:1; letter-spacing:-0.02em; display:block; margin-bottom:10px; }
+    .price-card--highlight .price-amount { color:var(--bg); }
+    .price-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:17px; color:var(--white); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px; display:block; }
+    .price-card--highlight .price-name { color:var(--bg); }
+    .price-desc { font-size:13px; font-weight:300; color:var(--mid); line-height:1.65; }
+    .price-card--highlight .price-desc { color:rgba(13,15,20,0.7); }
+
+    /* ── CTA BAND ────────────────────────────────────────────────── */
+    .cta-band { background:var(--bg-3); padding:100px 60px; text-align:center; }
+    .cta-band-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(48px,6vw,80px); color:var(--white); text-transform:uppercase; letter-spacing:0.04em; line-height:0.95; margin-bottom:40px; }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    footer { background:var(--bg-2); border-top:1px solid var(--line); padding:32px 60px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+    .footer-left { display:flex; align-items:center; gap:14px; }
+    .footer-copy { font-size:11px; font-weight:300; color:var(--muted); letter-spacing:0.06em; }
+    .footer-links { display:flex; gap:28px; }
+    .footer-links a { font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .footer-links a:hover { color:var(--accent); }
+
+    /* ── WHATSAPP ────────────────────────────────────────────────── */
+    .wa-btn { position:fixed; bottom:28px; right:28px; z-index:200; width:56px; height:56px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 4px 20px rgba(37,211,102,0.35); transition:transform .2s, box-shadow .2s; }
+    .wa-btn:hover { transform:scale(1.08); box-shadow:0 6px 28px rgba(37,211,102,0.5); }
+
+    /* ── REVEAL ──────────────────────────────────────────────────── */
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.3s ease, transform 0.3s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media(max-width:960px) {
+      nav { padding:0 28px; }
+      .nav-links, .nav-cta { display:none; }
+      .ham { display:flex; }
+      .services-grid { grid-template-columns:1fr; }
+      .pricing-grid { grid-template-columns:1fr; }
+      .page-hero { padding:120px 28px 60px; }
+      .pricing { padding:70px 28px; }
+      .cta-band { padding:70px 28px; }
+      footer { padding:28px; flex-direction:column; align-items:center; text-align:center; }
+    }
+    @media(max-width:480px) {
+      .page-hero__title { font-size:clamp(60px,16vw,90px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="vectra-logo">
+      <svg width="32" height="29" viewBox="0 0 735 662" fill="none" xmlns="http://www.w3.org/2000/svg" style="--vectra-bg:#0D0F14">
+        <path d="M367.5 0L735 662H0L367.5 0Z" fill="#F0F2F8"/>
+        <path d="M367.5 120L650 620H85L367.5 120Z" fill="#0D0F14"/>
+        <path d="M367.5 240L565 580H170L367.5 240Z" fill="#F0F2F8"/>
+      </svg>
+      <div class="vectra-logo__text">
+        <span class="vectra-logo__wordmark">VECTRA</span>
+        <span class="vectra-logo__tagline">Soluciones Aéreas &amp; Inspecciones Técnicas</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="servicios.html">Servicios</a>
+      <a href="index.html#proceso">Proceso</a>
+      <a href="index.html#caso">Nosotros</a>
+      <a href="contacto.html">Contacto</a>
+    </div>
+    <a href="contacto.html" class="nav-cta">Solicitar presupuesto</a>
+    <button class="ham" aria-label="Menú" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-overlay" id="mob-overlay" onclick="toggleMenu()"></div>
+  <div class="mob-menu" id="mob-menu">
+    <a href="servicios.html" onclick="toggleMenu()">Servicios</a>
+    <a href="index.html#proceso" onclick="toggleMenu()">Proceso</a>
+    <a href="index.html#caso" onclick="toggleMenu()">Nosotros</a>
+    <a href="contacto.html" onclick="toggleMenu()">Contacto</a>
+    <a href="contacto.html" onclick="toggleMenu()" style="color:var(--accent)">Solicitar presupuesto</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <span class="page-hero__label">Servicios</span>
+    <h1 class="page-hero__title">SERVICIOS</h1>
+    <p class="page-hero__sub">Seis líneas de servicio. Un único proveedor certificado.</p>
+  </section>
+
+  <!-- SERVICES GRID -->
+  <section class="services-section">
+    <div class="services-grid">
+
+      <!-- 01 Inspección de cubierta y fachada -->
+      <div class="service-card reveal">
+        <span class="service-num">01</span>
+        <div class="service-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Roof triangle -->
+            <polyline points="4,32 24,12 44,32" stroke="#C8A96E" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
+            <line x1="8" y1="32" x2="40" y2="32" stroke="#C8A96E" stroke-width="1.8"/>
+            <!-- Magnify circle -->
+            <circle cx="30" cy="30" r="7" stroke="#C8A96E" stroke-width="1.6" fill="none"/>
+            <line x1="35" y1="35" x2="40" y2="40" stroke="#C8A96E" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="service-name">Inspección de cubierta y fachada</h3>
+        <p class="service-desc">Diagnóstico visual completo de la envolvente del edificio desde el aire.</p>
+        <ul class="service-list">
+          <li>Grietas, filtraciones y desprendimientos</li>
+          <li>Geolocalización de patologías</li>
+          <li>Informe PDF 4K por zonas</li>
+          <li>Clasificación por urgencia + recomendaciones</li>
+        </ul>
+      </div>
+
+      <!-- 02 Inspección de finca agrícola -->
+      <div class="service-card reveal">
+        <span class="service-num">02</span>
+        <div class="service-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Field polygon -->
+            <polygon points="4,38 16,14 36,14 44,38" stroke="#C8A96E" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
+            <!-- Crop rows -->
+            <line x1="10" y1="28" x2="38" y2="28" stroke="#C8A96E" stroke-width="1.3" stroke-dasharray="3 3"/>
+            <line x1="12" y1="22" x2="36" y2="22" stroke="#C8A96E" stroke-width="1.3" stroke-dasharray="3 3"/>
+            <!-- Plant -->
+            <line x1="24" y1="38" x2="24" y2="30" stroke="#C8A96E" stroke-width="1.5"/>
+            <path d="M24 30 Q20 26 18 22" stroke="#C8A96E" stroke-width="1.5" fill="none"/>
+            <path d="M24 30 Q28 26 30 22" stroke="#C8A96E" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <h3 class="service-name">Inspección de finca agrícola</h3>
+        <p class="service-desc">Inspección aérea integral: edificaciones, cultivos e infraestructuras.</p>
+        <ul class="service-list">
+          <li>Reconocimiento perimetral completo</li>
+          <li>Vallado, accesos y caminos interiores</li>
+          <li>Infraestructuras de riego</li>
+          <li>Documentación fotográfica georreferenciada</li>
+        </ul>
+      </div>
+
+      <!-- 03 Gestión cinegética -->
+      <div class="service-card reveal">
+        <span class="service-num">03</span>
+        <div class="service-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Deer head -->
+            <ellipse cx="24" cy="30" rx="8" ry="10" stroke="#C8A96E" stroke-width="1.8" fill="none"/>
+            <!-- Antlers left -->
+            <path d="M18 22 Q14 16 10 12" stroke="#C8A96E" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+            <path d="M14 18 Q11 15 9 16" stroke="#C8A96E" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+            <path d="M12 15 Q10 12 12 10" stroke="#C8A96E" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+            <!-- Antlers right -->
+            <path d="M30 22 Q34 16 38 12" stroke="#C8A96E" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+            <path d="M34 18 Q37 15 39 16" stroke="#C8A96E" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+            <path d="M36 15 Q38 12 36 10" stroke="#C8A96E" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+            <!-- Eyes -->
+            <circle cx="21" cy="28" r="1.2" fill="#C8A96E"/>
+            <circle cx="27" cy="28" r="1.2" fill="#C8A96E"/>
+            <!-- Nose -->
+            <ellipse cx="24" cy="36" rx="2.5" ry="1.5" stroke="#C8A96E" stroke-width="1.3" fill="none"/>
+          </svg>
+        </div>
+        <h3 class="service-name">Gestión y recuento cinegético</h3>
+        <p class="service-desc">Recuento de fauna desde el aire para gestión precisa del coto.</p>
+        <ul class="service-list">
+          <li>Localización de animales por zonas</li>
+          <li>Vídeo 4K del avistamiento</li>
+          <li>Detección de especies invasoras</li>
+          <li>Mapa de distribución de fauna</li>
+        </ul>
+      </div>
+
+      <!-- 04 Estructuras industriales -->
+      <div class="service-card reveal">
+        <span class="service-num">04</span>
+        <div class="service-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Industrial building -->
+            <rect x="6" y="22" width="36" height="20" stroke="#C8A96E" stroke-width="1.8" fill="none"/>
+            <!-- Roof line -->
+            <line x1="6" y1="22" x2="42" y2="22" stroke="#C8A96E" stroke-width="1.8"/>
+            <!-- Chimneys -->
+            <rect x="12" y="12" width="5" height="10" stroke="#C8A96E" stroke-width="1.5" fill="none"/>
+            <rect x="22" y="8" width="5" height="14" stroke="#C8A96E" stroke-width="1.5" fill="none"/>
+            <rect x="32" y="14" width="5" height="8" stroke="#C8A96E" stroke-width="1.5" fill="none"/>
+            <!-- Windows -->
+            <rect x="10" y="26" width="6" height="5" stroke="#C8A96E" stroke-width="1.3" fill="none"/>
+            <rect x="21" y="26" width="6" height="5" stroke="#C8A96E" stroke-width="1.3" fill="none"/>
+            <rect x="32" y="26" width="6" height="5" stroke="#C8A96E" stroke-width="1.3" fill="none"/>
+            <!-- Door -->
+            <rect x="19" y="33" width="10" height="9" stroke="#C8A96E" stroke-width="1.3" fill="none"/>
+          </svg>
+        </div>
+        <h3 class="service-name">Estructuras industriales</h3>
+        <p class="service-desc">Diagnóstico de naves y grandes cubiertas sin andamios ni paradas.</p>
+        <ul class="service-list">
+          <li>Fisuras, deformaciones y corrosión</li>
+          <li>Lucernarios, claraboyas y juntas</li>
+          <li>Bajantes y sistemas de evacuación</li>
+          <li>Informe con inventario y urgencia</li>
+        </ul>
+      </div>
+
+      <!-- 05 Patrimonio y edificios públicos -->
+      <div class="service-card reveal">
+        <span class="service-num">05</span>
+        <div class="service-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pediment -->
+            <polyline points="6,20 24,8 42,20" stroke="#C8A96E" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
+            <!-- Top entablature -->
+            <line x1="6" y1="20" x2="42" y2="20" stroke="#C8A96E" stroke-width="1.8"/>
+            <line x1="8" y1="23" x2="40" y2="23" stroke="#C8A96E" stroke-width="1.3"/>
+            <!-- Columns -->
+            <line x1="11" y1="23" x2="11" y2="38" stroke="#C8A96E" stroke-width="1.8"/>
+            <line x1="19" y1="23" x2="19" y2="38" stroke="#C8A96E" stroke-width="1.8"/>
+            <line x1="29" y1="23" x2="29" y2="38" stroke="#C8A96E" stroke-width="1.8"/>
+            <line x1="37" y1="23" x2="37" y2="38" stroke="#C8A96E" stroke-width="1.8"/>
+            <!-- Stylobate -->
+            <line x1="5" y1="38" x2="43" y2="38" stroke="#C8A96E" stroke-width="1.8"/>
+            <line x1="4" y1="41" x2="44" y2="41" stroke="#C8A96E" stroke-width="1.3"/>
+          </svg>
+        </div>
+        <h3 class="service-name">Patrimonio y edificios públicos</h3>
+        <p class="service-desc">Inspección especializada en inmuebles históricos o de acceso difícil.</p>
+        <ul class="service-list">
+          <li>Torres, chapiteles y elementos singulares</li>
+          <li>Desprendimientos y riesgo estructural</li>
+          <li>Informe compatible con documentación oficial</li>
+          <li>Material para expedientes patrimoniales</li>
+        </ul>
+      </div>
+
+      <!-- 06 Fotografía y vídeo aéreo -->
+      <div class="service-card reveal">
+        <span class="service-num">06</span>
+        <div class="service-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Camera body -->
+            <rect x="6" y="18" width="36" height="24" rx="3" stroke="#C8A96E" stroke-width="1.8" fill="none"/>
+            <!-- Viewfinder bump -->
+            <path d="M18 18 L18 14 L30 14 L30 18" stroke="#C8A96E" stroke-width="1.5" fill="none"/>
+            <!-- Lens outer circle -->
+            <circle cx="24" cy="30" r="8" stroke="#C8A96E" stroke-width="1.8" fill="none"/>
+            <!-- Lens mid circle -->
+            <circle cx="24" cy="30" r="5" stroke="#C8A96E" stroke-width="1.3" fill="none"/>
+            <!-- Lens inner dot -->
+            <circle cx="24" cy="30" r="2" fill="#C8A96E"/>
+            <!-- Flash indicator -->
+            <rect x="33" y="21" width="4" height="3" rx="1" stroke="#C8A96E" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <h3 class="service-name">Fotografía y vídeo aéreo profesional</h3>
+        <p class="service-desc">Contenido aéreo e interior profesional para inmobiliarias y marketing.</p>
+        <ul class="service-list">
+          <li>Fotografía y vídeo aéreo 4K</li>
+          <li>Fotografía de interiores + recorrido vídeo</li>
+          <li>Tour virtual 360º navegable</li>
+          <li>Formatos para portales y redes sociales</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="pricing-inner">
+      <span class="section-label">Tarifas orientativas</span>
+      <h2 style="font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:clamp(32px,4vw,52px); color:var(--white); letter-spacing:0.04em; line-height:1.02; margin-bottom:24px;">Precios claros. Sin sorpresas.</h2>
+      <p class="pricing-note">El precio final depende de la superficie, accesibilidad y complejidad del inmueble. Presupuesto sin compromiso en menos de 24 horas.</p>
+      <div class="pricing-grid">
+
+        <!-- Card 1 -->
+        <div class="price-card reveal">
+          <span class="price-from">desde</span>
+          <span class="price-amount">350€</span>
+          <span class="price-name">Inspección Residencial</span>
+          <p class="price-desc">Cubierta o fachada hasta 500 m². Vuelo + fotografía 4K + informe visual. Entrega en 48h.</p>
+        </div>
+
+        <!-- Card 2 HIGHLIGHTED -->
+        <div class="price-card price-card--highlight reveal">
+          <span class="price-from">desde</span>
+          <span class="price-amount">550€</span>
+          <span class="price-name">Inspección Técnica Completa</span>
+          <p class="price-desc">Hasta 1.500 m². Informe técnico con inventario de patologías, urgencia y recomendaciones. 48h.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="price-card reveal">
+          <span class="price-from">desde</span>
+          <span class="price-amount">900€</span>
+          <span class="price-name">Nave Industrial / Gran Superficie</span>
+          <p class="price-desc">Más de 1.500 m². Vuelo sistematizado, cobertura total, informe técnico detallado.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="price-card reveal">
+          <span class="price-from">desde</span>
+          <span class="price-amount">480€</span>
+          <span class="price-name">Gestión Cinegética</span>
+          <p class="price-desc">Recuento y localización de fauna en cotos. Vídeo 4K, mapa de distribución e informe de gestión.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="price-card reveal">
+          <span class="price-from">desde</span>
+          <span class="price-amount">650€</span>
+          <span class="price-name">Patrimonio y Edificios Públicos</span>
+          <p class="price-desc">Inmuebles históricos o catalogados. Informe compatible con expedientes patrimoniales.</p>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="price-card reveal">
+          <span class="price-from">desde</span>
+          <span class="price-amount">290€</span>
+          <span class="price-name">Fotografía y Vídeo Aéreo</span>
+          <p class="price-desc">Reportaje aéreo profesional para inmobiliarias, eventos o marketing. Edición básica incluida.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <h2 class="cta-band-title">¿Listo para ver lo que<br>otros no pueden ver?</h2>
+    <a href="contacto.html" class="btn-primary">SOLICITAR INSPECCIÓN</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <svg width="20" height="18" viewBox="0 0 735 662" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M367.5 0L735 662H0L367.5 0Z" fill="#4A5168"/>
+        <path d="M367.5 120L650 620H85L367.5 120Z" fill="#0D0F14"/>
+        <path d="M367.5 240L565 580H170L367.5 240Z" fill="#4A5168"/>
+      </svg>
+      <span class="footer-copy">© 2026 VECTRA. Todos los derechos reservados.</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="contacto.html">Contacto</a>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP -->
+  <a class="wa-btn" href="https://wa.me/34689632895?text=Hola%2C%20me%20interesa%20una%20inspecci%C3%B3n%20con%20dron" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="white"/>
+    </svg>
+  </a>
+
+  <script>
+    /* ── MOBILE MENU ─────────────────────────────────────────────── */
+    function toggleMenu() {
+      const ham = document.querySelector('.ham');
+      const menu = document.getElementById('mob-menu');
+      const overlay = document.getElementById('mob-overlay');
+      ham.classList.toggle('open');
+      menu.classList.toggle('open');
+      overlay.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    }
+
+    /* ── ACTIVE NAV ──────────────────────────────────────────────── */
+    (function() {
+      const path = window.location.pathname;
+      document.querySelectorAll('.nav-links a, .mob-menu a').forEach(function(a) {
+        const href = a.getAttribute('href');
+        if (href === 'servicios.html' && path.endsWith('servicios.html')) {
+          a.classList.add('nav-active');
+        }
+      });
+    })();
+
+    /* ── SCROLL REVEAL ───────────────────────────────────────────── */
+    (function() {
+      const els = document.querySelectorAll('.reveal');
+      if (!els.length) return;
+      const obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      els.forEach(function(el) { obs.observe(el); });
+    })();
+  </script>
+</body>
+</html>
