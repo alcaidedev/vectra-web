@@ -3,428 +3,233 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VECTRA — Inspecciones con Dron · Madrid</title>
-  <meta name="description" content="Inspección técnica de cubiertas y fachadas con dron certificado AESA. Informe en 48h, sin andamios. Desde 350€. Madrid y alrededores.">
+  <title>VECTRA — Fotografía, vídeo e inspecciones con dron</title>
+  <meta name="description" content="Fotografía y vídeo aéreo para inmobiliarias e inspecciones técnicas con dron. Operador UAS registrado en AESA. Respuesta en menos de 24 h y entrega en 48 h. Península Ibérica.">
+  <meta name="theme-color" content="#0A3048">
+  <link rel="icon" type="image/svg+xml" href="media/vectra-mark-dark.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@300;500;600&display=swap" rel="stylesheet">
-  <style>
-    /* ── RESET & BASE ─────────────────────────────────────────────── */
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; font-size:16px; }
-    body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--white); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
-
-    /* ── CSS VARIABLES ────────────────────────────────────────────── */
-    :root {
-      --bg:#F6F7FA;
-      --bg-2:#ECEEF4;
-      --bg-3:#E3E6EE;
-      --line:#D5D8E4;
-      --muted:#8C90A4;
-      --mid:#565A70;
-      --soft:#2E3248;
-      --white:#0E1018;
-      --accent:#C8A96E;
-      --accent-dim:rgba(200,169,110,0.08);
-      --accent-glow:rgba(200,169,110,0.18);
-    }
-
-    /* ── NAV ─────────────────────────────────────────────────────── */
-    nav {
-      position:fixed; top:0; left:0; right:0; z-index:100;
-      height:68px; display:flex; align-items:center; justify-content:space-between;
-      padding:0 60px;
-      border-bottom:1px solid var(--line);
-      background:rgba(246,247,250,0.94);
-      backdrop-filter:blur(14px);
-    }
-    .vectra-logo { display:flex; align-items:center; gap:11px; text-decoration:none; }
-    .vectra-logo__text { display:flex; flex-direction:column; }
-    .vectra-logo__wordmark { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; line-height:1; text-transform:uppercase; color:var(--white); }
-    .vectra-logo__tagline { font-family:'Barlow',sans-serif; font-weight:300; font-size:6.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-top:4px; }
-    .nav-links { display:flex; gap:36px; }
-    .nav-links a { font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid); text-decoration:none; transition:color .2s; }
-    .nav-links a:hover, .nav-links a.nav-active { color:var(--accent); }
-    .nav-cta { font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#0E1018; background:var(--accent); border:none; padding:9px 20px; cursor:pointer; transition:all .2s; text-decoration:none; display:inline-block; }
-    .nav-cta:hover { background:#d4b87a; }
-    .ham { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; z-index:200; }
-    .ham span { display:block; width:22px; height:1.5px; background:var(--white); transition:all .2s; }
-    .ham.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
-    .ham.open span:nth-child(2) { opacity:0; }
-    .ham.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
-
-    /* ── MOBILE MENU ─────────────────────────────────────────────── */
-    .mob-menu {
-      position:fixed; top:0; right:0; bottom:0; width:80vw; max-width:320px;
-      background:var(--bg-2); z-index:150; transform:translateX(100%);
-      transition:transform .3s ease; display:flex; flex-direction:column;
-      padding:100px 40px 60px; gap:32px;
-    }
-    .mob-menu.open { transform:translateX(0); }
-    .mob-menu a { font-family:'Barlow Condensed',sans-serif; font-size:36px; font-weight:700; color:var(--white); text-decoration:none; letter-spacing:0.04em; text-transform:uppercase; transition:color .2s; }
-    .mob-menu a:hover, .mob-menu a.nav-active { color:var(--accent); }
-    .mob-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:140; display:none; }
-    .mob-overlay.open { display:block; }
-
-    /* ── HERO ─────────────────────────────────────────────────────── */
-    .hero {
-      min-height:100vh; min-height:100svh;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center; text-align:center;
-      position:relative; padding:140px 40px 90px; overflow:hidden;
-    }
-    .hero-bg { position:absolute; inset:0; overflow:hidden; }
-    .hero-vid { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.8s ease; }
-    .hero-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(160deg, rgba(5,7,15,0.60) 0%, rgba(5,7,15,0.44) 55%, rgba(5,7,15,0.64) 100%); }
-    .hero-watermark { position:absolute; z-index:2; opacity:0.13; top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; user-select:none; }
-    .hero-watermark svg { display:block; max-width:95vw; height:auto; }
-    .hero-content { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; }
-    .hero-eyebrow { font-size:10px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:rgba(255,255,255,0.65); margin-bottom:22px; }
-    .hero-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(58px,8.5vw,112px); line-height:0.92; letter-spacing:0.04em; text-transform:uppercase; color:#ffffff; text-wrap:balance; }
-    .hero-title em { font-style:normal; color:rgba(255,255,255,0.22); }
-    .hero-sub { font-weight:300; font-size:15px; letter-spacing:0.03em; color:rgba(255,255,255,0.72); margin-top:26px; max-width:560px; line-height:1.65; }
-    .hero-actions { display:flex; gap:16px; margin-top:42px; flex-wrap:wrap; justify-content:center; width:100%; }
-    .hero-actions .btn-primary, .hero-actions .btn-ghost { width:220px; text-align:center; }
-    .hero-scroll { position:absolute; bottom:36px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.3; z-index:3; }
-    .hero-scroll span { font-size:8px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.55); }
-    .scroll-line { width:1px; height:32px; background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.45)); }
-
-    /* ── BUTTONS ─────────────────────────────────────────────────── */
-    .btn-primary { font-family:'Barlow',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:#0E1018; background:var(--accent); border:none; padding:14px 32px; cursor:pointer; transition:background .2s; text-decoration:none; display:inline-block; }
-    .btn-primary:hover { background:#d4b87a; }
-    .btn-ghost { font-family:'Barlow',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.78); background:transparent; border:1px solid rgba(255,255,255,0.35); padding:14px 32px; cursor:pointer; transition:all .2s; text-decoration:none; display:inline-block; }
-    .btn-ghost:hover { color:#ffffff; border-color:rgba(255,255,255,0.65); }
-
-    /* ── SERVICE BAND ────────────────────────────────────────────── */
-    .service-band {
-      background:var(--accent); padding:16px 60px;
-      display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
-      gap:0;
-    }
-    .service-band__text { font-family:'Barlow',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:#0E1018; text-align:center; line-height:1.8; }
-
-    /* ── SECTION COMMON ──────────────────────────────────────────── */
-    .section-label { font-size:9px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; display:block; }
-    .section-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:clamp(32px,4vw,52px); color:var(--white); letter-spacing:0.04em; line-height:1.02; margin-bottom:56px; }
-
-    /* ── POR QUÉ VECTRA ──────────────────────────────────────────── */
-    .why { padding:100px 60px; max-width:1200px; margin:0 auto; }
-    .why-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-    .why-col { background:var(--bg-2); padding:48px 40px; position:relative; overflow:hidden; }
-    .why-num { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:64px; color:rgba(200,169,110,0.15); line-height:1; position:absolute; top:24px; right:28px; letter-spacing:-0.02em; user-select:none; }
-    .why-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:22px; color:var(--white); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px; margin-top:16px; }
-    .why-desc { font-size:14px; font-weight:300; color:var(--mid); line-height:1.7; }
-
-
-    /* ── PROCESO ─────────────────────────────────────────────────── */
-    .proceso { padding:100px 60px; max-width:1200px; margin:0 auto; }
-    .process-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
-    .process-step { padding:48px 36px; border-right:1px solid var(--line); position:relative; }
-    .process-step:last-child { border-right:none; }
-    .process-num { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:72px; color:rgba(200,169,110,0.15); line-height:1; letter-spacing:-0.02em; user-select:none; display:block; margin-bottom:16px; }
-    .process-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:20px; color:var(--white); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px; }
-    .process-desc { font-size:13px; font-weight:300; color:var(--mid); line-height:1.7; }
-
-    /* ── CTA BAND ────────────────────────────────────────────────── */
-    .cta-band { background:var(--bg-3); padding:100px 60px; text-align:center; }
-    .cta-band-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(48px,6vw,80px); color:var(--white); text-transform:uppercase; letter-spacing:0.04em; line-height:0.95; margin-bottom:40px; }
-
-    /* ── FOOTER ──────────────────────────────────────────────────── */
-    footer { background:var(--bg-2); border-top:1px solid var(--line); padding:32px 60px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
-    .footer-left { display:flex; align-items:center; gap:14px; }
-    .footer-copy { font-size:11px; font-weight:300; color:var(--muted); letter-spacing:0.06em; }
-    .footer-links { display:flex; gap:28px; }
-    .footer-links a { font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
-    .footer-links a:hover { color:var(--accent); }
-
-    /* ── WHATSAPP ────────────────────────────────────────────────── */
-    .wa-btn { position:fixed; bottom:28px; right:28px; z-index:200; width:56px; height:56px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 4px 20px rgba(37,211,102,0.35); transition:transform .2s, box-shadow .2s; }
-    .wa-btn:hover { transform:scale(1.08); box-shadow:0 6px 28px rgba(37,211,102,0.5); }
-
-    /* ── REVEAL ──────────────────────────────────────────────────── */
-    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.3s ease, transform 0.3s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0); }
-
-    /* ── DARK CONTRAST SECTIONS ─────────────────────────────────── */
-    .cta-band {
-      --bg:#0D0F14; --bg-2:#13161D; --bg-3:#1A1E27; --line:#252A35;
-      --muted:#4A5168; --mid:#8891A8; --soft:#C8CEDC; --white:#F0F2F8;
-      background:#0D0F14;
-    }
-
-    /* ── RESPONSIVE ──────────────────────────────────────────────── */
-    @media(max-width:960px) {
-      nav { padding:0 28px; }
-      .nav-links, .nav-cta { display:none; }
-      .ham { display:flex; }
-      .why-grid { grid-template-columns:1fr; }
-      .proceso .process-grid { grid-template-columns:1fr 1fr; }
-      .process-step:nth-child(2) { border-right:none; }
-      .process-step:nth-child(3) { border-right:1px solid var(--line); border-top:1px solid var(--line); }
-      .process-step:nth-child(4) { border-right:none; border-top:1px solid var(--line); }
-      .why, .proceso { padding:70px 28px; }
-      .cta-band { padding:70px 28px; }
-      .service-band { padding:16px 28px; }
-      footer { padding:28px; flex-direction:column; align-items:center; text-align:center; }
-    }
-    @media(max-width:480px) {
-      .hero-actions .btn-primary, .hero-actions .btn-ghost { width:100%; }
-      .hero-actions { flex-direction:column; }
-      .hero-watermark { opacity:0.07; }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- NAV -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mark" viewBox="0 0 120 108">
+      <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="currentColor"/>
+      <polygon points="57,14 63,14 60,78" fill="var(--vectra-bg,#ffffff)" opacity="0.85"/>
+      <circle cx="60" cy="6" r="7" fill="var(--vectra-bg,#ffffff)"/>
+      <circle cx="60" cy="6" r="5.5" fill="currentColor"/>
+    </symbol>
+  </svg>
+
   <nav>
-    <a href="index.html" class="vectra-logo">
-      <svg width="32" height="29" viewBox="0 0 120 108" fill="none" style="color:#0E1018; --vectra-bg:#F6F7FA">
-        <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="currentColor"/>
-        <polygon points="57,14 63,14 60,78" fill="transparent" style="fill:var(--vectra-bg,#F6F7FA)" opacity="0.85"/>
-        <circle cx="60" cy="6" r="7" style="fill:var(--vectra-bg,#F6F7FA)"/>
-        <circle cx="60" cy="6" r="5.5" fill="currentColor"/>
-      </svg>
-      <div class="vectra-logo__text">
-        <span class="vectra-logo__wordmark">VECTRA</span>
-        <span class="vectra-logo__tagline">Soluciones Aéreas &amp; Inspecciones Técnicas</span>
-      </div>
+    <a href="index.html" class="logo" aria-label="VECTRA, inicio">
+      <svg width="34" height="31" style="--vectra-bg:#FCFAF6"><use href="#mark"/></svg>
+      <span class="logo__text">
+        <span class="logo__word">VECTRA</span>
+        <span class="logo__tag">Soluciones Aéreas &amp; Inspecciones Técnicas</span>
+      </span>
     </a>
     <div class="nav-links">
       <a href="servicios.html">Servicios</a>
       <a href="index.html#proceso">Proceso</a>
-      <a href="index.html#proceso">Nosotros</a>
+      <a href="index.html#nosotros">Nosotros</a>
       <a href="contacto.html">Contacto</a>
     </div>
-    <a href="contacto.html" class="nav-cta">Solicitar presupuesto</a>
-    <button class="ham" aria-label="Menú" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="contacto.html" class="nav-cta">Solicitar propuesta</a>
+    <button class="ham" aria-label="Menú" aria-expanded="false" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- MOBILE MENU -->
   <div class="mob-overlay" id="mob-overlay" onclick="toggleMenu()"></div>
   <div class="mob-menu" id="mob-menu">
     <a href="servicios.html" onclick="toggleMenu()">Servicios</a>
     <a href="index.html#proceso" onclick="toggleMenu()">Proceso</a>
-    <a href="index.html#proceso" onclick="toggleMenu()">Nosotros</a>
+    <a href="index.html#nosotros" onclick="toggleMenu()">Nosotros</a>
     <a href="contacto.html" onclick="toggleMenu()">Contacto</a>
-    <a href="contacto.html" onclick="toggleMenu()" style="color:var(--accent)">Solicitar presupuesto</a>
+    <a href="contacto.html" class="gold" onclick="toggleMenu()">Solicitar propuesta</a>
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
+  <!-- PORTADA -->
+  <header class="hero">
     <div class="hero-bg">
-      <video class="hero-vid" id="hero-vid-a" src="/media/green_field.mp4" muted playsinline autoplay preload="auto"></video>
+      <video class="hero-vid" id="hero-vid-a" src="media/green_field.mp4" poster="media/poster.jpg" muted playsinline autoplay preload="auto"></video>
       <video class="hero-vid" id="hero-vid-b" muted playsinline preload="none"></video>
+      <div class="hero-shade"></div>
     </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-watermark">
-      <svg width="735" height="662" viewBox="0 0 120 108" fill="none" style="color:#ffffff; --vectra-bg:#080a10">
-        <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="currentColor"/>
-        <polygon points="57,14 63,14 60,78" fill="transparent" style="fill:var(--vectra-bg,#080a10)" opacity="0.85"/>
-        <circle cx="60" cy="6" r="7" style="fill:var(--vectra-bg,#080a10)"/>
-        <circle cx="60" cy="6" r="5.5" fill="currentColor"/>
-      </svg>
-    </div>
+    <div class="hero-frame"></div>
     <div class="hero-content">
-      <p class="hero-eyebrow">Madrid · Dron certificado AESA</p>
-      <h1 class="hero-title">Vemos lo que<br><em>OTROS</em> no ven</h1>
-      <p class="hero-sub">Inspección técnica con dron certificado AESA. Informe en 48h, sin andamios, sin interrupciones.</p>
+      <svg class="hero-mark" width="62" height="56" style="color:#fff; --vectra-bg:#0A3048" aria-hidden="true"><use href="#mark"/></svg>
+      <div class="hero-word">VECTRA</div>
+      <div class="hero-tag">Soluciones aéreas &amp; inspecciones técnicas</div>
+      <div class="hero-rule"></div>
+      <h1 class="hero-title">Fotografía, vídeo e inspecciones desde el aire</h1>
+      <p class="hero-sub">Contenido visual premium para comercializar inmuebles y diagnósticos técnicos sin andamios. Respuesta en menos de 24 h.</p>
       <div class="hero-actions">
-        <a href="servicios.html" class="btn-primary">VER SERVICIOS</a>
-        <a href="contacto.html" class="btn-ghost">SOLICITAR INSPECCIÓN</a>
+        <a href="servicios.html" class="btn btn--gold">Ver servicios</a>
+        <a href="contacto.html" class="btn btn--ghost">Solicitar propuesta</a>
       </div>
     </div>
-    <div class="hero-scroll">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
+    <div class="hero-foot">Península Ibérica · vectra-aerea.com</div>
+  </header>
+
+  <!-- DOS LÍNEAS -->
+  <section id="lineas">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow">VECTRA</span>
+        <h2 class="h-title">Qué hacemos</h2>
+        <p class="h-sub">Dos líneas de trabajo, un mismo operador certificado.</p>
+      </div>
+      <div class="lines">
+        <a href="servicios.html#imagen" class="line-card reveal">
+          <img src="media/inspeccion-finca.jpg" alt="Vista aérea cenital de una finca con naves y cubiertas" loading="lazy">
+          <span class="line-card__num">01</span>
+          <h3 class="line-card__title">Fotografía y vídeo aéreo</h3>
+          <p class="line-card__text">Pisos, chalets, fincas y promociones presentados con perspectivas que muestran entorno, acceso y valor. Desde 200&nbsp;€&nbsp;+&nbsp;IVA.</p>
+          <span class="line-card__more">Ver tarifas →</span>
+        </a>
+        <a href="servicios.html#inspeccion" class="line-card reveal">
+          <img src="media/inspeccion-cubierta-dano.jpg" alt="Inspección con dron de una cubierta deteriorada" loading="lazy">
+          <span class="line-card__num">02</span>
+          <h3 class="line-card__title">Inspecciones técnicas</h3>
+          <p class="line-card__text">Cubiertas, fachadas, naves, fincas y patrimonio. Informe geolocalizado con fotografía 4K, sin andamios ni paradas.</p>
+          <span class="line-card__more">Ver servicios →</span>
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- SERVICE BAND -->
-  <div class="service-band">
-    <p class="service-band__text">Inspección de cubiertas &nbsp;·&nbsp; Finca agrícola &nbsp;·&nbsp; Gestión cinegética &nbsp;·&nbsp; Estructuras industriales &nbsp;·&nbsp; Patrimonio &nbsp;·&nbsp; Fotografía y vídeo aéreo</p>
-  </div>
+  <!-- NOSOTROS -->
+  <section id="nosotros" class="sec-tight">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow">VECTRA</span>
+        <h2 class="h-title">Quiénes somos</h2>
+        <p class="h-sub">Contenido visual y diagnóstico técnico para quien necesita ver más.</p>
+      </div>
+      <figure class="figure figure--wide figure--cap reveal">
+        <img src="media/inspeccion-nave.jpg" alt="Nave con cubierta de teja y chapa vista desde el aire" loading="lazy">
+        <figcaption><b>VECTRA</b> · Captación aérea sobre nave agrícola</figcaption>
+      </figure>
+      <div class="cols" style="margin-top:44px">
+        <div class="col reveal">
+          <span class="col__num">01</span>
+          <h3 class="col__title">Captamos desde el aire</h3>
+          <p class="col__text">Perspectivas que muestran entorno, acceso, volumen y estado real del inmueble.</p>
+        </div>
+        <div class="col reveal">
+          <span class="col__num">02</span>
+          <h3 class="col__title">Editamos con criterio</h3>
+          <p class="col__text">Imágenes limpias y luminosas para web y portales; informes claros para arquitectos, seguros y administraciones.</p>
+        </div>
+        <div class="col reveal">
+          <span class="col__num">03</span>
+          <h3 class="col__title">Entregamos rápido</h3>
+          <p class="col__text">Respuesta en menos de 24 h y entrega habitual en 48 h.</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat reveal">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="26" cy="26" r="22"/><path d="M26 12v14l9 6" stroke-linecap="round"/></svg>
+          <div class="stat__body"><div class="stat__num">&lt; 24 h</div><div class="stat__label">Respuesta</div></div>
+        </div>
+        <div class="stat reveal">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="9" width="42" height="38" rx="4"/><path d="M5 20h42M16 4v10M36 4v10" stroke-linecap="round"/></svg>
+          <div class="stat__body"><div class="stat__num">48 h</div><div class="stat__label">Entrega habitual</div></div>
+        </div>
+      </div>
+      <div class="callout reveal" style="margin-top:20px">
+        <div class="callout__title">Operativa legal<br>y segura</div>
+        <p class="callout__text">Planificación del vuelo, revisión del espacio aéreo y coordinación operativa incluidas. Operador UAS registrado en AESA.</p>
+      </div>
+    </div>
+  </section>
 
-  <!-- POR QUÉ VECTRA -->
-  <section class="why">
-    <span class="section-label">Por qué VECTRA</span>
-    <h2 class="section-title">Tecnología de inspección. Sin obra.</h2>
-    <div class="why-grid">
-      <div class="why-col reveal">
-        <span class="why-num">01</span>
-        <h3 class="why-title">Sin andamios ni obra</h3>
-        <p class="why-desc">Diagnóstico completo desde el aire. Sin cortar producción, sin riesgo para el personal.</p>
+  <!-- EVIDENCIA -->
+  <section class="sec-tight">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow">Inspecciones técnicas</span>
+        <h2 class="h-title">Lo que ve el dron</h2>
+        <p class="h-sub">Imágenes reales de nuestras inspecciones: patologías localizadas sin pisar la cubierta.</p>
       </div>
-      <div class="why-col reveal">
-        <span class="why-num">02</span>
-        <h3 class="why-title">Informe técnico en 48h</h3>
-        <p class="why-desc">Documentación lista para arquitectos, seguros y administraciones. PDF geolocalizado con fotografía 4K.</p>
-      </div>
-      <div class="why-col reveal">
-        <span class="why-num">03</span>
-        <h3 class="why-title">Operadores certificados AESA</h3>
-        <p class="why-desc">Cobertura legal completa. Autorizaciones de vuelo gestionadas, seguros en regla.</p>
+      <div class="gallery">
+        <figure class="reveal"><img src="media/inspeccion-finca.jpg" alt="Finca con invernaderos y naves" loading="lazy"><figcaption>Finca agrícola</figcaption></figure>
+        <figure class="reveal"><img src="media/inspeccion-nave.jpg" alt="Nave con cubierta mixta" loading="lazy"><figcaption>Cubierta de nave</figcaption></figure>
+        <figure class="reveal"><img src="media/inspeccion-teja.jpg" alt="Detalle de teja con musgo" loading="lazy"><figcaption>Detalle de teja</figcaption></figure>
+        <figure class="reveal"><img src="media/inspeccion-cubierta-dano.jpg" alt="Cubierta con roturas" loading="lazy"><figcaption>Daños en cubierta</figcaption></figure>
       </div>
     </div>
   </section>
 
   <!-- PROCESO -->
-  <section class="proceso" id="proceso">
-    <span class="section-label">Cómo trabajamos</span>
-    <h2 class="section-title">Simple. Preciso. Rápido.</h2>
-    <div class="process-grid">
-      <div class="process-step reveal">
-        <span class="process-num">01</span>
-        <h3 class="process-title">Contacto</h3>
-        <p class="process-desc">Envíanos dirección e inmueble. Confirmamos en 24 h.</p>
+  <section id="proceso" class="sec-tight">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow">VECTRA</span>
+        <h2 class="h-title">Cómo trabajamos</h2>
+        <p class="h-sub">Un proceso ágil, profesional y pensado para ti.</p>
       </div>
-      <div class="process-step reveal">
-        <span class="process-num">02</span>
-        <h3 class="process-title">Planificación</h3>
-        <p class="process-desc">Gestionamos autorizaciones AESA y coordinamos fecha.</p>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step__dot"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h20v13H12l-6 5v-5H4z" stroke-linejoin="round"/></svg></div>
+          <span class="step__num">01</span>
+          <h3 class="step__title">Solicitud</h3>
+          <p class="step__text">Cuéntanos el inmueble. Respondemos en menos de 24 h.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step__dot"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="22" height="20" rx="3"/><path d="M3 11h22M9 3v5M19 3v5" stroke-linecap="round"/></svg></div>
+          <span class="step__num">02</span>
+          <h3 class="step__title">Planificación</h3>
+          <p class="step__text">Revisamos viabilidad y espacio aéreo, y coordinamos horario.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step__dot"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="15" cy="15" r="3"/><circle cx="6" cy="6" r="3.5"/><circle cx="24" cy="6" r="3.5"/><circle cx="6" cy="24" r="3.5"/><circle cx="24" cy="24" r="3.5"/><path d="M9 9l4 4M21 9l-4 4M9 21l4-4M21 21l-4-4"/></svg></div>
+          <span class="step__num">03</span>
+          <h3 class="step__title">Captación</h3>
+          <p class="step__text">Fotografía, vídeo, inspección y, si se contrata, interiores 360 con equipos DJI e Insta360.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step__dot"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h8l3 3h11v13H3z" stroke-linejoin="round"/></svg></div>
+          <span class="step__num">04</span>
+          <h3 class="step__title">Entrega</h3>
+          <p class="step__text">Material editado o informe técnico en 48 h, listo para usar.</p>
+        </div>
       </div>
-      <div class="process-step reveal">
-        <span class="process-num">03</span>
-        <h3 class="process-title">Vuelo</h3>
-        <p class="process-desc">Captura 4K con piloto AESA habilitado. Sin andamios.</p>
-      </div>
-      <div class="process-step reveal">
-        <span class="process-num">04</span>
-        <h3 class="process-title">Entrega</h3>
-        <p class="process-desc">Informe técnico completo en 48 h.</p>
+      <div class="callout reveal" style="margin-top:56px">
+        <div class="callout__title">Nos ocupamos de la parte operativa</div>
+        <p class="callout__text">Tú te centras en el inmueble: nosotros gestionamos la preparación del servicio y la ejecución visual.</p>
       </div>
     </div>
   </section>
 
-  <!-- CTA BAND -->
-  <section class="cta-band">
-    <h2 class="cta-band-title">¿Listo para ver lo que<br>otros no pueden ver?</h2>
-    <a href="contacto.html" class="btn-primary">SOLICITAR INSPECCIÓN</a>
+  <!-- CTA -->
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Solicitar propuesta</span>
+      <h2 class="cta__title">¿Listo para ver lo que otros no pueden ver?</h2>
+      <div class="cta__rule"></div>
+      <a href="contacto.html" class="btn btn--gold">Solicitar propuesta</a>
+      <p class="cta__small">Tarifa especial para inmobiliarias <span>·</span> Respuesta &lt; 24 h <span>·</span> Entrega habitual en 48 h</p>
+    </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
-    <div class="footer-left">
-      <svg width="20" height="18" viewBox="0 0 120 108" fill="none" style="color:#8C90A4; --vectra-bg:#ECEEF4">
-        <polygon points="60,6 110,96 84,96 60,80 36,96 10,96" fill="currentColor"/>
-        <polygon points="57,14 63,14 60,78" fill="transparent" style="fill:var(--vectra-bg,#ECEEF4)" opacity="0.85"/>
-        <circle cx="60" cy="6" r="7" style="fill:var(--vectra-bg,#ECEEF4)"/>
-        <circle cx="60" cy="6" r="5.5" fill="currentColor"/>
-      </svg>
-      <span class="footer-copy">© 2026 VECTRA. Todos los derechos reservados.</span>
+    <div class="foot-left">
+      <svg width="22" height="20" style="--vectra-bg:#FCFAF6" aria-hidden="true"><use href="#mark"/></svg>
+      <span>© 2026 VECTRA · Operador UAS registrado en AESA</span>
     </div>
-    <div class="footer-links">
+    <div class="foot-links">
       <a href="index.html">Inicio</a>
       <a href="servicios.html">Servicios</a>
       <a href="contacto.html">Contacto</a>
     </div>
   </footer>
 
-  <!-- WHATSAPP -->
-  <a class="wa-btn" href="https://wa.me/34689632895?text=Hola%2C%20me%20interesa%20una%20inspecci%C3%B3n%20con%20dron" target="_blank" rel="noopener" aria-label="WhatsApp">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="white"/>
-    </svg>
+  <a class="wa-btn" href="https://wa.me/34689632895?text=Hola%2C%20me%20interesa%20un%20servicio%20de%20VECTRA" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#fff"/></svg>
   </a>
 
-  <script>
-    /* ── MOBILE MENU ─────────────────────────────────────────────── */
-    function toggleMenu() {
-      const ham = document.querySelector('.ham');
-      const menu = document.getElementById('mob-menu');
-      const overlay = document.getElementById('mob-overlay');
-      ham.classList.toggle('open');
-      menu.classList.toggle('open');
-      overlay.classList.toggle('open');
-      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-    }
-
-    /* ── ACTIVE NAV ──────────────────────────────────────────────── */
-    (function() {
-      const path = window.location.pathname;
-      document.querySelectorAll('.nav-links a, .mob-menu a').forEach(function(a) {
-        const href = a.getAttribute('href');
-        if (href === 'index.html' && (path === '/' || path.endsWith('index.html') || path === '')) {
-          a.classList.add('nav-active');
-        }
-      });
-    })();
-
-    /* ── HERO VIDEO CROSSFADE ────────────────────────────────────── */
-    (function() {
-      const VIDEOS = [
-        '/media/green_field.mp4',
-        '/media/construction_site.mp4',
-        '/media/castle_garden.mp4',
-        '/media/vineyard.mp4'
-      ];
-      const vA = document.getElementById('hero-vid-a');
-      const vB = document.getElementById('hero-vid-b');
-      const pair = [vA, vB];
-      let idx = 0, active = 0, busy = false, skipCount = 0;
-
-      function tryPlay(el) { var p = el.play(); if (p) p.catch(function(){}); }
-
-      function loadVideo(el, src, onReady, onFail) {
-        el.src = src; el.load();
-        var timer = setTimeout(function() { cleanup(); onReady(); }, 2000);
-        function handleReady() { clearTimeout(timer); cleanup(); onReady(); }
-        function handleError() { clearTimeout(timer); cleanup(); onFail(); }
-        function cleanup() { el.removeEventListener('canplay', handleReady); el.removeEventListener('error', handleError); }
-        el.addEventListener('canplay', handleReady);
-        el.addEventListener('error', handleError);
-      }
-
-      function crossfade() {
-        if (busy) return;
-        busy = true;
-        var next = 1 - active;
-        idx = (idx + 1) % VIDEOS.length;
-        loadVideo(pair[next], VIDEOS[idx],
-          function() {
-            skipCount = 0;
-            tryPlay(pair[next]);
-            pair[next].style.opacity = '1';
-            pair[active].style.opacity = '0';
-            var prev = active; active = next;
-            setTimeout(function() { pair[prev].pause(); pair[prev].removeAttribute('src'); pair[prev].load(); busy = false; }, 900);
-          },
-          function() { skipCount++; busy = false; if (skipCount < VIDEOS.length) crossfade(); }
-        );
-      }
-
-      /* Show first video immediately — don't wait for canplay */
-      vA.style.opacity = '1';
-      tryPlay(vA);
-      vA.addEventListener('ended', crossfade);
-      vB.addEventListener('ended', crossfade);
-
-      /* iOS: resume after lock/tab switch */
-      document.addEventListener('visibilitychange', function() {
-        if (!document.hidden) tryPlay(pair[active]);
-      });
-      /* Mobile fallback: resume on first touch */
-      document.addEventListener('touchstart', function resume() {
-        document.removeEventListener('touchstart', resume);
-        var v = pair[active]; if (v && v.paused && v.src) tryPlay(v);
-      }, { passive: true });
-    })();
-
-    /* ── SCROLL REVEAL ───────────────────────────────────────────── */
-    (function() {
-      const els = document.querySelectorAll('.reveal');
-      if (!els.length) return;
-      const obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      els.forEach(function(el) { obs.observe(el); });
-    })();
-  </script>
+  <script src="main.js"></script>
 </body>
 </html>
