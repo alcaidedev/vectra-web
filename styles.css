@@ -222,8 +222,6 @@ footer { background:var(--cream); border-top:1px solid var(--line); padding:34px
 .foot-links a { font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--navy); text-decoration:none; }
 .foot-links a:hover { color:var(--gold); }
 
-.wa-btn { position:fixed; bottom:26px; right:26px; z-index:120; width:56px; height:56px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 22px rgba(10,48,72,0.28); transition:transform .2s; }
-.wa-btn:hover { transform:scale(1.08); }
 
 /* ── REVEAL ────────────────────────────────────── */
 .js .reveal { opacity:0; transform:translateY(18px); transition:opacity .5s ease, transform .5s ease; }
