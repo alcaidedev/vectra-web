@@ -33,17 +33,19 @@ function toggleMenu() {
   els.forEach(function (el) { obs.observe(el); });
 })();
 
-/* Portada: rotación de vídeos con fundido. Respeta "reducir movimiento" y ahorro de datos. */
+/* Portada: vídeo ligero (720p, 8 s). No se carga en móvil, con ahorro de datos, conexión lenta
+   o "reducir movimiento": en esos casos se queda el póster. Se pausa al salir de la portada. */
 (function () {
   var vA = document.getElementById('hero-vid-a');
   var vB = document.getElementById('hero-vid-b');
   if (!vA || !vB) return;
-  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var saveData = navigator.connection && navigator.connection.saveData;
-  if (reduce || saveData) { vA.remove(); vB.remove(); return; }
+  var conn = navigator.connection || {};
+  var skip = (window.matchMedia && (matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(max-width: 768px)').matches))
+    || conn.saveData || /(^|-)(slow-)?2g|3g/.test(conn.effectiveType || '');
+  if (skip) { vA.remove(); vB.remove(); return; }
 
   var VIDEOS = ['media/green_field.mp4', 'media/castle_garden.mp4', 'media/construction_site.mp4', 'media/vineyard.mp4'];
-  var pair = [vA, vB], idx = 0, active = 0, busy = false, fails = 0;
+  var pair = [vA, vB], idx = 0, active = 0, busy = false, fails = 0, inView = true;
   function play(el) { var p = el.play(); if (p && p.catch) p.catch(function () {}); }
 
   function next() {
@@ -55,7 +57,8 @@ function toggleMenu() {
     var done = false;
     function ok() {
       if (done) return; done = true;
-      fails = 0; play(el);
+      fails = 0;
+      if (inView) play(el);
       el.style.opacity = '1';
       pair[active].style.opacity = '0';
       var prev = active; active = n;
@@ -76,5 +79,11 @@ function toggleMenu() {
   vA.addEventListener('ended', next);
   vB.addEventListener('ended', next);
   play(vA);
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) play(pair[active]); });
+
+  function sync() { var v = pair[active]; if (inView && !document.hidden) play(v); else v.pause(); }
+  document.addEventListener('visibilitychange', sync);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { inView = e[0].isIntersecting; sync(); }, { threshold: 0.05 })
+      .observe(document.querySelector('.hero'));
+  }
 })();
