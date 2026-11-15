@@ -44,8 +44,29 @@ function toggleMenu() {
     || conn.saveData || /(^|-)(slow-)?2g|3g/.test(conn.effectiveType || '');
   if (skip) { vA.remove(); vB.remove(); return; }
 
-  var VIDEOS = ['media/green_field.mp4', 'media/castle_garden.mp4', 'media/construction_site.mp4', 'media/vineyard.mp4'];
+  var NAMES = ['green_field', 'castle_garden', 'construction_site', 'vineyard'];
+  var LOW = function (i) { return 'media/' + NAMES[i] + '.mp4'; };
+  var HD = function (i) { return 'media/' + NAMES[i] + '-hd.mp4'; };
+  var VIDEOS = NAMES;
   var pair = [vA, vB], idx = 0, active = 0, busy = false, fails = 0, inView = true;
+  var lastUrl = LOW(0), useHD = false;
+
+  /* Velocidad real (Mbps) con la que se descargó el último vídeo; null si no se puede medir. */
+  function measured(url) {
+    try {
+      var e = performance.getEntriesByType('resource').filter(function (r) { return r.name.indexOf(url) !== -1; }).pop();
+      if (!e || !e.transferSize || e.responseEnd <= e.startTime) return null;
+      return (e.transferSize * 8) / ((e.responseEnd - e.startTime) / 1000) / 1e6;
+    } catch (err) { return null; }
+  }
+  /* HD (1080p, ~2,5 MB) solo en pantallas grandes y con red claramente rápida. Por defecto, 720p (~0,8 MB). */
+  function wantHD() {
+    if (window.innerWidth < 1100) return false;
+    var m = measured(lastUrl);
+    var need = useHD ? 6 : 10;
+    if (m !== null) return m >= need;
+    return conn.downlink === undefined ? false : conn.downlink >= 10;
+  }
   function play(el) { var p = el.play(); if (p && p.catch) p.catch(function () {}); }
 
   function next() {
@@ -53,6 +74,9 @@ function toggleMenu() {
     busy = true;
     var n = 1 - active;
     idx = (idx + 1) % VIDEOS.length;
+    useHD = wantHD();
+    var url = useHD ? HD(idx) : LOW(idx);
+    lastUrl = url;
     var el = pair[n];
     var done = false;
     function ok() {
@@ -71,7 +95,7 @@ function toggleMenu() {
     }
     el.addEventListener('canplay', ok, { once: true });
     el.addEventListener('error', ko, { once: true });
-    el.src = VIDEOS[idx]; el.load();
+    el.src = url; el.load();
   }
 
   vA.addEventListener('loadeddata', function () { vA.style.opacity = '1'; }, { once: true });
